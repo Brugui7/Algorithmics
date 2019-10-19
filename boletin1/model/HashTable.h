@@ -29,13 +29,13 @@ void cleanTable(hashtable* hashtable, int technique);
 hashtable *insertFilm(hashtable *hashTable, int technique);
 
 //To add a film to the hashTable
-void addFilm(hashtable *hashTable, film *newFilm, int technique);
+void addFilm(hashtable *hashTable, film *newFilm, int technique, int showCollisions);
 
-int linearCollisionHandler(hashtable *hashTable, int index);
+int linearCollisionHandler(hashtable *hashTable, int index, int showCollisions);
 
-int keyDependentCollisionHandler(hashtable *hashTable, int hashCode);
+int keyDependentCollisionHandler(hashtable *hashTable, int hashCode, int showCollisions);
 
-int chainedCollisionHandler(hashtable *hashTable, film *newFilm, int hashcode);
+int chainedCollisionHandler(hashtable *hashTable, film *newFilm, int hashcode, int showCollisions);
 
 int getLoadFactor(hashtable *hashTable, int technique);
 
