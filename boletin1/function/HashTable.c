@@ -102,7 +102,7 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique){
                 newIndex = linearCollisionHandler(hashTable, index);
                 break;
             case 2:
-                //TODO key-dependent
+                newIndex = keyDependentCollisionHandler(hashTable, hashCode);
                 break;
             case 3://TODO chained
                 break;
@@ -123,7 +123,7 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique){
 
 
 /**
- * Uses the Linear
+ * Uses the Linear technique to handle a collision
  * @param hashTable
  * @param index int original position where the item was going to be inserted in
  * @return int position to insert the film in or -1 if no position have been found
@@ -134,6 +134,34 @@ int linearCollisionHandler(hashtable *hashTable, int index){
     int tableSize = TABLE_SIZE;
     for(int i = 0; i < tableSize - 1; i++){
         int newIndex = (index + i) % TABLE_SIZE;
+        if (hashTable[newIndex]->key == free || hashTable[newIndex]->key == deleted){
+            return newIndex;
+        }
+    }
+    return -1;
+
+}
+
+/**
+ * Uses the Key-Dependent technique to handle a collision
+ * @param hashTable
+ * @param index int original position where the item was going to be inserted in
+ * @return int position to insert the film in or -1 if no position have been found
+ */
+int keyDependentCollisionHandler(hashtable *hashTable, int hashCode){
+    int free = FREE;
+    int deleted = DELETED;
+    int tableSize = TABLE_SIZE;
+    int d = 0;
+    int index = hashCode % 400;
+    for(int i = 0; i < tableSize - 1; i++){
+        d = __max(1, hashCode / tableSize);
+        //To ensure a full exploration of the table, d and tableSize should be prime numbers between them
+        while (d % tableSize == 0){
+            d += 1;
+        }
+
+        int newIndex = (index + d * i) % TABLE_SIZE;
         if (hashTable[newIndex]->key == free || hashTable[newIndex]->key == deleted){
             return newIndex;
         }

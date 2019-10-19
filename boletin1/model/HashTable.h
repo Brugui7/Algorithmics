@@ -28,4 +28,8 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique);
 
 int linearCollisionHandler(hashtable *hashTable, int index);
 
+int keyDependentCollisionHandler(hashtable *hashTable, int hashCode);
+
+//TODO: LoadFactor
+
 #endif //ALGORITHMICS_HASHTABLE_H
