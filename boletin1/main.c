@@ -7,13 +7,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "model/Film.h"
+#include "model/HashTable.h"
 
 
 /**
  * Shows all the options and calls the appropriate function depending of the chosen option
  */
-void showMenu(film *hashTable) {
+void showMenu(hashtable *hashTable) {
 
     int option = 0;
     while (option != 3) {
@@ -47,7 +47,7 @@ void showMenu(film *hashTable) {
 
 int main() {
     int aux = TABLE_SIZE
-    film* hashTable = (film*) malloc(sizeof(film) * aux);
+    hashtable* hashTable = (hashtable*) malloc(sizeof(hashTable) * aux);
     showMenu(hashTable);
     //destroyEverything(hashTable);
 }

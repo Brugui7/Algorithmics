@@ -7,8 +7,6 @@
 #ifndef ALGORITHMICS_FILM_H
 #define ALGORITHMICS_FILM_H
 
-#define FREE -1;
-#define TABLE_SIZE 400;
 
 typedef struct film {
     int year;
@@ -16,13 +14,14 @@ typedef struct film {
     char* title;
     char* genre;
     int popularity;
+    //These two fields will be only used with the chained technique
+    struct film *previous;
+    struct film *next;
 } film;
 
-film *loadFile(film* hashtable, int technique);
+int hash(film *film);
 
-void insertFilm(film *hashTable, film *newFilm);
-
-int hash(film);
+void showFilm(film *film);
 
 #endif //ALGORITHMICS_FILM_H
 
