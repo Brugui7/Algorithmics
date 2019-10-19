@@ -8,8 +8,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "HashTable.h"
+
 /**
- * reads the films file and saves the data into the hash table using the desired technique
+ * Reads the films file and saves the data into the hash table using the desired technique
  * @param technique 1 - lineal | 2 - key-depend | 3 - chained
  * @return
  */
@@ -61,8 +62,28 @@ hashtable *loadFile(hashtable* hashTable, int technique){
         addFilm(hashTable, newFilm, technique);
         showFilm(newFilm);
     }
+    printf("Fichero cargado correctamente, factor de carga del %d%%\n", getLoadFactor(hashTable, technique));
     free(buffer);
     return hashTable;
+}
+
+
+/**
+ * Resturns the load factor
+ * @param hashTable
+ * @return
+ */
+int getLoadFactor(hashtable *hashTable, int technique){
+    double tableSize = getTableSize(technique);
+    double totalElements = 0;
+    double result;
+    int free = FREE;
+    int deleted = DELETED;
+    for(int i = 0; i < tableSize; i++){
+        totalElements += hashTable[i]->key != free && hashTable[i]->key != deleted ? 1 : 0;
+    }
+    result = totalElements / tableSize;
+    return result * 100;
 }
 
 /**
@@ -72,17 +93,15 @@ hashtable *loadFile(hashtable* hashTable, int technique){
  * @return hashtable
  */
 void cleanTable(hashtable* hashTable, int technique){
-    int aux;
+    int tableSize = getTableSize(technique);
     if (technique == 3){
-        aux = CHAINED_TABLE_SIZE;
-        for(int i = 0; i < aux; i++){
+        for(int i = 0; i < tableSize; i++){
             hashTable[i] = (hashitem*) malloc(sizeof(hashitem));
             hashTable[i]->key = FREE;
             hashTable[i]->next = NULL;
         }
     } else {
-        aux = TABLE_SIZE;
-        for(int i = 0; i < aux; i++){
+        for(int i = 0; i < tableSize; i++){
             hashTable[i] = (hashitem*) malloc(sizeof(hashitem));
             hashTable[i]->key = FREE;
         }
@@ -102,11 +121,7 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique){
     int free = FREE;
     int deleted = DELETED;
 
-    if (technique == 3){
-        index = hashCode % CHAINED_TABLE_SIZE;
-    } else {
-        index = hashCode % TABLE_SIZE;
-    }
+
 
     if (hashTable[index]->key == free || hashTable[index]->key == deleted){
         hashTable[index]->key = hashCode;
@@ -152,9 +167,9 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique){
 int linearCollisionHandler(hashtable *hashTable, int index){
     int free = FREE;
     int deleted = DELETED;
-    int tableSize = TABLE_SIZE;
+    int tableSize = getTableSize(1);;
     for(int i = 0; i < tableSize - 1; i++){
-        int newIndex = (index + i) % TABLE_SIZE;
+        int newIndex = (index + i) % tableSize;
         if (hashTable[newIndex]->key == free || hashTable[newIndex]->key == deleted){
             return newIndex;
         }
@@ -172,17 +187,17 @@ int linearCollisionHandler(hashtable *hashTable, int index){
 int keyDependentCollisionHandler(hashtable *hashTable, int hashCode){
     int free = FREE;
     int deleted = DELETED;
-    int tableSize = TABLE_SIZE;
+    int tableSize = getTableSize(2);
     int d = 0;
     int index = hashCode % tableSize;
     for(int i = 0; i < tableSize - 1; i++){
         d = __max(1, hashCode / tableSize);
         //To ensure a full exploration of the table, d and tableSize should be prime numbers between them
-        while (d % tableSize == 0){
+        while (d >= tableSize && d % tableSize == 0){
             d += 1;
         }
 
-        int newIndex = (index + d * i) % TABLE_SIZE;
+        int newIndex = (index + d * i) % tableSize;
         if (hashTable[newIndex]->key == free || hashTable[newIndex]->key == deleted){
             return newIndex;
         }
@@ -204,9 +219,7 @@ int keyDependentCollisionHandler(hashtable *hashTable, int hashCode){
   * @return int 1 if the film has been inserted | -1 if not
   */
 int chainedCollisionHandler(hashtable *hashTable, film *newFilm, int hashcode){
-    int free = FREE;
-    int deleted = DELETED;
-    int tableSize = CHAINED_TABLE_SIZE;
+    int tableSize = getTableSize(3);
     int index = hashcode % tableSize;
 
     hashitem *auxItem = hashTable[index];
@@ -227,4 +240,39 @@ int chainedCollisionHandler(hashtable *hashTable, film *newFilm, int hashcode){
 
     return -1;
 
+}
+
+/**
+ * Returns the table size based in the technique used
+ * @param technique int technique 1 - lineal | 2 - key-depend | 3 - chained
+ * @return int size
+ */
+int getTableSize(int technique){
+    if(technique == 1) {
+        return TABLE_SIZE;
+    } else if(technique == 2){
+        //If it's using the key-dependent technique the size will be a prime number to ensure a full iteration
+        int size = TABLE_SIZE;
+        while (!isPrimeNumber(size)){
+            size++;
+        }
+        return size;
+    }
+
+    return CHAINED_TABLE_SIZE;
+}
+
+/**
+ * Aux function to check if a number is prime, for the table size of the key-dependent technique
+ * @see https://stackoverflow.com/questions/1538644/c-determine-if-a-number-is-prime
+ * @param number
+ * @return int 0 if not | 1 if yes
+ */
+int isPrimeNumber(int number) {
+    if (number <= 1) return 0;
+    int i;
+    for (i=2; i*i<=number; i++) {
+        if (number % i == 0) return 0;
+    }
+    return 1;
 }

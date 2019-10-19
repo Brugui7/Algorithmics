@@ -76,6 +76,7 @@ int selectAlgorithm(){
 
 }
 
+
 int main() {
     int aux = TABLE_SIZE
     hashtable* hashTable = (hashtable*) malloc(sizeof(hashTable) * aux);

@@ -1,7 +1,9 @@
-//
-// Created by Brugui on 19/10/2019.
-//
-
+/**
+ * @file
+ * @brief Functions definition for HashTable
+ * @author: Alejandro Brugarolas
+ * @since: 2019-10
+*/
 #ifndef ALGORITHMICS_HASHTABLE_H
 #define ALGORITHMICS_HASHTABLE_H
 
@@ -35,6 +37,10 @@ int keyDependentCollisionHandler(hashtable *hashTable, int hashCode);
 
 int chainedCollisionHandler(hashtable *hashTable, film *newFilm, int hashcode);
 
-//TODO: LoadFactor
+int getLoadFactor(hashtable *hashTable, int technique);
 
+int getTableSize(int technique);
+
+
+int isPrimeNumber(int number);
 #endif //ALGORITHMICS_HASHTABLE_H
