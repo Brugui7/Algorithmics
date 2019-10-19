@@ -19,12 +19,14 @@ void showMenu(hashtable *hashTable) {
 
     int option = 0;
     int technique = selectAlgorithm();
+    //Cleans the HashTable
+    cleanTable(hashTable, technique);
     while (option != 3) {
         //Todo seleccionar algoritmo y mostrar menú distinto o más opciones por cada algoritmo
         printf("\n############### MENU BOLETÍN 1 ###############\n"
                "Indique qué acción desea realizar\n"
                "\t1. Cargar el fichero\n"
-               "\t2. En construcción\n"
+               "\t2. Insertar manualmente\n"
                "\t3. Salir\n");
         printf("> ");
 
@@ -35,7 +37,7 @@ void showMenu(hashtable *hashTable) {
                 loadFile(hashTable, technique);
                 break;
             case 2:
-                //TODO
+                insertFilm(hashTable, technique);
                 break;
             case 3:
                 printf("Saliendo...");

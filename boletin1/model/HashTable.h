@@ -26,7 +26,7 @@ hashtable *loadFile(hashtable* hashtable, int technique);
 void cleanTable(hashtable* hashtable, int technique);
 
 //To manually add a new film
-void insertFilm(hashtable *hashTable, film *newFilm);
+hashtable *insertFilm(hashtable *hashTable, int technique);
 
 //To add a film to the hashTable
 void addFilm(hashtable *hashTable, film *newFilm, int technique);

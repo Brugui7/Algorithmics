@@ -12,11 +12,9 @@
 /**
  * Reads the films file and saves the data into the hash table using the desired technique
  * @param technique 1 - lineal | 2 - key-depend | 3 - chained
- * @return
+ * @return the table filled
  */
 hashtable *loadFile(hashtable* hashTable, int technique){
-    //Cleans the HashTable
-    cleanTable(hashTable, technique);
 
     char fileName[100] = "";
     FILE *file = NULL;
@@ -62,11 +60,57 @@ hashtable *loadFile(hashtable* hashTable, int technique){
         addFilm(hashTable, newFilm, technique);
         showFilm(newFilm);
     }
-    printf("Fichero cargado correctamente, factor de carga del %d%%\n", getLoadFactor(hashTable, technique));
+
     free(buffer);
     return hashTable;
 }
 
+/**
+ * Inserts a film manually
+ * @param hashTable
+ * @return hashtable the table with the new film added
+ */
+hashtable *insertFilm(hashtable *hashTable, int technique){
+    char *buffer = (char *) malloc(sizeof(char) * 255);
+    size_t length;
+    film *newFilm = (film*) malloc(sizeof(film));
+
+    printf("Introduzca el nombre de la película\n> ");
+    gets(buffer);
+    fflush(stdin);
+    length = strlen(buffer);
+    //the ++length is for the null terminator
+    newFilm->title = (char *) malloc(++length * sizeof(char));
+    strncpy(newFilm->title, buffer, length);
+
+    printf("Introduzca el género de la película\n> ");
+    gets(buffer);
+    fflush(stdin);
+    length = strlen(buffer);
+    //the ++length is for the null terminator
+    newFilm->genre = (char *) malloc(++length * sizeof(char));
+    strncpy(newFilm->genre, buffer, length);
+
+    printf("Introduzca el año de la película\n> ");
+    scanf("%d", &newFilm->year);
+    fflush(stdin);
+
+    printf("Introduzca la duración de la película\n> ");
+    scanf("%d", &newFilm->duration);
+    fflush(stdin);
+
+    printf("Introduzca la popularidad de la película\n> ");
+    scanf("%d", &newFilm->popularity);
+    fflush(stdin);
+
+    printf("Guardando datos...\n");
+    showFilm(newFilm);
+    addFilm(hashTable, newFilm, technique);
+    int loadFactor = getLoadFactor(hashTable, technique);
+    printf("Factor de carga del %d%%\n", loadFactor);
+    free(buffer);
+    return hashTable;
+}
 
 /**
  * Resturns the load factor
@@ -168,7 +212,7 @@ int linearCollisionHandler(hashtable *hashTable, int index){
     int free = FREE;
     int deleted = DELETED;
     int tableSize = getTableSize(1);;
-    for(int i = 0; i < tableSize - 1; i++){
+    for(int i = 0; i < tableSize; i++){
         int newIndex = (index + i) % tableSize;
         if (hashTable[newIndex]->key == free || hashTable[newIndex]->key == deleted){
             return newIndex;
@@ -190,7 +234,7 @@ int keyDependentCollisionHandler(hashtable *hashTable, int hashCode){
     int tableSize = getTableSize(2);
     int d = 0;
     int index = hashCode % tableSize;
-    for(int i = 0; i < tableSize - 1; i++){
+    for(int i = 0; i < tableSize; i++){
         d = __max(1, hashCode / tableSize);
         //To ensure a full exploration of the table, d and tableSize should be prime numbers between them
         while (d >= tableSize && d % tableSize == 0){
