@@ -14,9 +14,6 @@ typedef struct film {
     char* title;
     char* genre;
     int popularity;
-    //These two fields will be only used with the chained technique
-    struct film *previous;
-    struct film *next;
 } film;
 
 int hash(film *film);

@@ -15,7 +15,7 @@
  */
 hashtable *loadFile(hashtable* hashTable, int technique){
     //Cleans the HashTable
-    cleanTable(hashTable);
+    cleanTable(hashTable, technique);
 
     char fileName[100] = "";
     FILE *file = NULL;
@@ -68,15 +68,27 @@ hashtable *loadFile(hashtable* hashTable, int technique){
 /**
  * Sets every position in the table as free
  * @param hashtable
+ * @param technique
  * @return hashtable
  */
-void cleanTable(hashtable* hashTable){
-    int aux = TABLE_SIZE;
-
-    for(int i = 0; i < aux; i++){
-        hashTable[i] = (hashitem*) malloc(sizeof(hashitem));
-        hashTable[i]->key = FREE
+void cleanTable(hashtable* hashTable, int technique){
+    int aux;
+    if (technique == 3){
+        aux = CHAINED_TABLE_SIZE;
+        for(int i = 0; i < aux; i++){
+            hashTable[i] = (hashitem*) malloc(sizeof(hashitem));
+            hashTable[i]->key = FREE;
+            hashTable[i]->next = NULL;
+        }
+    } else {
+        aux = TABLE_SIZE;
+        for(int i = 0; i < aux; i++){
+            hashTable[i] = (hashitem*) malloc(sizeof(hashitem));
+            hashTable[i]->key = FREE;
+        }
     }
+
+
 }
 
 /**
@@ -85,15 +97,20 @@ void cleanTable(hashtable* hashTable){
  * @param newFilm
  */
 void addFilm(hashtable *hashTable, film *newFilm, int technique){
+    int index = 0;
     int hashCode = hash(newFilm);
-    int index = hashCode % 400;
     int free = FREE;
     int deleted = DELETED;
+
+    if (technique == 3){
+        index = hashCode % CHAINED_TABLE_SIZE;
+    } else {
+        index = hashCode % TABLE_SIZE;
+    }
+
     if (hashTable[index]->key == free || hashTable[index]->key == deleted){
         hashTable[index]->key = hashCode;
         hashTable[index]->film = newFilm;
-        printf("Hashcode añadido: %d", hashCode);
-
     } else{
         //Collision
         int newIndex = 0;
@@ -104,7 +121,12 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique){
             case 2:
                 newIndex = keyDependentCollisionHandler(hashTable, hashCode);
                 break;
-            case 3://TODO chained
+            case 3:
+                newIndex = chainedCollisionHandler(hashTable, newFilm, hashCode);
+                break;
+            default:
+                //The code should never reach this point
+                printf("Error, algoritmo de manejo de colisiones no soportado\n");
                 break;
         }
 
@@ -114,9 +136,8 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique){
         } else if (technique == 1 || technique == 2){
             hashTable[newIndex]->key = hashCode;
             hashTable[newIndex]->film = newFilm;
-        } else {
-            //TODO chained
         }
+        //If the technique is the chained one, the newIndex will be just an error code, 1 if ok, -1 if an error has happened
     }
 
 }
@@ -125,7 +146,7 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique){
 /**
  * Uses the Linear technique to handle a collision
  * @param hashTable
- * @param index int original position where the item was going to be inserted in
+ * @param index int original position where the film was going to be inserted in
  * @return int position to insert the film in or -1 if no position have been found
  */
 int linearCollisionHandler(hashtable *hashTable, int index){
@@ -145,7 +166,7 @@ int linearCollisionHandler(hashtable *hashTable, int index){
 /**
  * Uses the Key-Dependent technique to handle a collision
  * @param hashTable
- * @param index int original position where the item was going to be inserted in
+ * @param int hashcode of the film
  * @return int position to insert the film in or -1 if no position have been found
  */
 int keyDependentCollisionHandler(hashtable *hashTable, int hashCode){
@@ -153,7 +174,7 @@ int keyDependentCollisionHandler(hashtable *hashTable, int hashCode){
     int deleted = DELETED;
     int tableSize = TABLE_SIZE;
     int d = 0;
-    int index = hashCode % 400;
+    int index = hashCode % tableSize;
     for(int i = 0; i < tableSize - 1; i++){
         d = __max(1, hashCode / tableSize);
         //To ensure a full exploration of the table, d and tableSize should be prime numbers between them
@@ -166,6 +187,44 @@ int keyDependentCollisionHandler(hashtable *hashTable, int hashCode){
             return newIndex;
         }
     }
+    return -1;
+}
+
+/**
+
+ * @param hashTable
+ *
+
+ */
+ /**
+  * Uses the chained technique to handle a collision
+  * @param hashTable
+  * @param newFilm film to insert
+  * @param hashcode int hashcode of the film
+  * @return int 1 if the film has been inserted | -1 if not
+  */
+int chainedCollisionHandler(hashtable *hashTable, film *newFilm, int hashcode){
+    int free = FREE;
+    int deleted = DELETED;
+    int tableSize = CHAINED_TABLE_SIZE;
+    int index = hashcode % tableSize;
+
+    hashitem *auxItem = hashTable[index];
+
+    //Iterates over the list until a free space is found
+    while (auxItem->next != NULL) {
+        auxItem = auxItem->next;
+    }
+
+    if (auxItem->next == NULL){
+        auxItem->next = (hashitem*) malloc(sizeof(hashitem));
+        auxItem = auxItem->next;
+        auxItem->key = hashcode;
+        auxItem->film = newFilm;
+        auxItem->next = NULL;
+        return 1;
+    }
+
     return -1;
 
 }
