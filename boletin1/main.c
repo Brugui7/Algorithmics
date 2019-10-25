@@ -22,7 +22,6 @@ void showMenu(hashtable *hashTable) {
     //Cleans the HashTable
     cleanTable(hashTable, technique);
     while (option != 3) {
-        //Todo seleccionar algoritmo y mostrar menú distinto o más opciones por cada algoritmo
         printf("\n############### MENU BOLETÍN 1 ###############\n"
                "Indique qué acción desea realizar\n"
                "\t1. Cargar el fichero\n"

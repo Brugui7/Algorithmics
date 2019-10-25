@@ -277,18 +277,27 @@ int keyDependentCollisionHandler(hashtable *hashTable, int hashCode, int showCol
   */
 int chainedCollisionHandler(hashtable *hashTable, film *newFilm, int hashcode, int showCollisions){
     int tableSize = getTableSize(3);
-     int index = hashcode % tableSize;
-     if (showCollisions) printf("Colisión en la posición: %d\n", index);
+    int index = hashcode % tableSize;
+    if (showCollisions) printf("Colisión en la posición: %d\n", index);
 
-    hashitem *auxItem = hashTable[index];
 
+
+    hashitem *auxItem = (hashitem*) malloc(sizeof(hashitem));
+    auxItem->next = hashTable[index]->next;
+    auxItem->key = hashcode;
+    auxItem->film = newFilm;
+    hashTable[index] = auxItem;
+
+     return 1;
+
+    /*
     //Iterates over the list until a free space is found
     while (auxItem->next != NULL) {
         auxItem = auxItem->next;
     }
 
     if (auxItem->next == NULL){
-        auxItem->next = (hashitem*) malloc(sizeof(hashitem));
+        auxItem->next = (hashitem*) malloc(sizeof(hashitem)
         auxItem = auxItem->next;
         auxItem->key = hashcode;
         auxItem->film = newFilm;
@@ -296,7 +305,7 @@ int chainedCollisionHandler(hashtable *hashTable, film *newFilm, int hashcode, i
         return 1;
     }
 
-    return -1;
+    return -1;*/
 
 }
 
