@@ -16,7 +16,7 @@ typedef struct film {
     int popularity;
 } film;
 
-int hash(film *film);
+int hash(int year, int duration, int popularity);
 
 void showFilm(film *film);
 

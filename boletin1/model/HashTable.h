@@ -39,8 +39,9 @@ int chainedCollisionHandler(hashtable *hashTable, film *newFilm, int hashcode, i
 
 int getLoadFactor(hashtable *hashTable, int technique);
 
-int getTableSize(int technique);
+void searchOrDeleteOption(hashtable *hashTable, int technique, int action);
 
+int getTableSize(int technique);
 
 int isPrimeNumber(int number);
 #endif //ALGORITHMICS_HASHTABLE_H

@@ -162,7 +162,7 @@ void cleanTable(hashtable* hashTable, int technique){
  *
  */
 void addFilm(hashtable *hashTable, film *newFilm, int technique, int showCollisions){
-    int hashCode = hash(newFilm);
+    int hashCode = hash(newFilm->year, newFilm->duration, newFilm->popularity);
     int index = hashCode % getTableSize(technique);
     int free = FREE;
     int deleted = DELETED;
@@ -173,7 +173,7 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique, int showCollisi
         hashTable[index]->key = hashCode;
         hashTable[index]->film = newFilm;
         if(technique == 3){
-            hashTable[index]->next = NULL;
+            //hashTable[index]->next = hashitem malloc(); TODO: set key as free
         }
     } else{
         //Collision
@@ -206,6 +206,76 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique, int showCollisi
 
 }
 
+/**
+ * Asks the user for the film data to find or delete it
+ * @param hashTable
+ * @param technique int technique 1 - lineal | 2 - key-depend | 3 - chained
+ * @param action int 1 - search | 2 - delete
+ */
+void searchOrDeleteOption(hashtable *hashTable, int technique, int action){
+    char *title = (char*) malloc(sizeof(char) * 255);
+    int year, duration, popularity;
+    film *filmFound;
+
+    printf("Introduzca el nombre de la película\n> ");
+    gets(title);
+    fflush(stdin);
+    title = (char *) realloc(title, (sizeof(title) + 1) * sizeof(char));
+
+    printf("Introduzca el año de la película\n> ");
+    scanf("%d", &year);
+    fflush(stdin);
+
+    printf("Introduzca la duración de la película\n> ");
+    scanf("%d", &duration);
+    fflush(stdin);
+
+    printf("Introduzca la popularidad de la película\n> ");
+    scanf("%d", &popularity);
+    fflush(stdin);
+
+    int hashcode = hash(year, duration, popularity);
+    int index = hashcode / getTableSize(technique);
+    if (technique == 3){
+        while ()
+    }
+
+    free(title);
+}
+
+// ########## COLLISION HANDLING SEARCH ##########
+/**
+ * Uses the Linear technique to handle a collision of search
+ * @param hashTable
+ * @param index int original position where the film should be in first place
+ * @param int 1 to show a message on collisions, 0 if not
+ * @return int position to insert the film in or -1 if no position have been found
+ */
+int linearSearchCollisionHandler(hashtable *hashTable, int hashcode, char* title, int showCollisions){
+    int free = FREE;
+    int tableSize = getTableSize(1);;
+    int firstIndex = hashcode % tableSize;
+    if (showCollisions) printf("Colisión en la posición: %d\n", firstIndex);
+
+    for(int i = 0; i < tableSize; i++){
+        int newIndex = (firstIndex + i) % tableSize;
+        if (hashTable[newIndex]->key == free){
+            return -1;
+        }
+
+        if (hashTable[newIndex]->key == hashcode && strcmp(title, hashTable[newIndex]->film->title) == 0){
+            return newIndex;
+        }
+
+
+        if (showCollisions) printf("Colisión en la posición: %d\n", newIndex);
+
+    }
+    return -1;
+
+}
+
+// ########## COLLISION HANDLING INSERT ##########
 
 /**
  * Uses the Linear technique to handle a collision
@@ -261,12 +331,8 @@ int keyDependentCollisionHandler(hashtable *hashTable, int hashCode, int showCol
     return -1;
 }
 
-/**
 
- * @param hashTable
- *
 
- */
  /**
   * Uses the chained technique to handle a collision
   * @param hashTable
@@ -308,6 +374,10 @@ int chainedCollisionHandler(hashtable *hashTable, film *newFilm, int hashcode, i
     return -1;*/
 
 }
+
+
+
+// ########## AUX FUNCTIONS ##########
 
 /**
  * Returns the table size based in the technique used

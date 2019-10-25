@@ -12,11 +12,14 @@
 
 
 /**
- * Obtains a code by doing a sum of year + duration + popularity
+ * Obtains a code by doing a sum of year + duration + popularity of a film
+ * @param year
+ * @param duration
+ * @param popularity
  * @return int hash code of the film
  */
-int hash(film *film){
-    return film->year + film->duration + film->popularity;
+int hash(int year, int duration, int popularity){
+    return year + duration + popularity;
 }
 
 void showFilm(film *film){
