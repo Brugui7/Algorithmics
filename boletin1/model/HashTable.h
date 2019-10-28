@@ -42,6 +42,8 @@ void searchOrDeleteOption(hashtable *hashTable, int technique, int action);
 
 int linearSearchCollisionHandler(hashtable *hashTable, int hashcode, char* title);
 
+int keyDependentSearchCollisionHandler(hashtable *hashTable, int hashCode, char* title);
+
 int getLoadFactor(hashtable *hashTable, int technique);
 
 // AUX

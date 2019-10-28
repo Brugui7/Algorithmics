@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include "model/HashTable.h"
 
+
 int selectAlgorithm();
 void showMenu(hashtable *hashTable);
 
@@ -21,7 +22,7 @@ void showMenu(hashtable *hashTable) {
     int technique = selectAlgorithm();
     //Cleans the HashTable
     cleanTable(hashTable, technique);
-    while (option != 3) {
+    while (option != 6) {
         printf("\n############### MENU BOLETÍN 1 ###############\n"
                "Indique qué acción desea realizar\n"
                "\t1. Cargar el fichero.\n"

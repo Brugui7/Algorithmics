@@ -7,7 +7,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <profileapi.h>
 #include "HashTable.h"
+
 
 /**
  * Reads the films file and saves the data into the hash table using the desired technique
@@ -16,11 +18,18 @@
  */
 hashtable *loadFile(hashtable* hashTable, int technique){
 
+    //For the time measuring
+    LARGE_INTEGER frequency;
+    LARGE_INTEGER start;
+    LARGE_INTEGER end;
+    double interval;
+
     char fileName[100] = "";
     FILE *file = NULL;
     char *buffer = (char *) malloc(sizeof(char) * 255);
     char *token;
     size_t length, bufferSize = 255;
+    int showTime = 0;
 
     //Asks for the file to load the data
     while (file == NULL) {
@@ -29,7 +38,16 @@ hashtable *loadFile(hashtable* hashTable, int technique){
         fflush(stdin);
         file = fopen(fileName, "r");
     }
+
+    printf("¿Desea ver el tiempo del algoritmo?\n\t1. Sí\n\t0. No\n> ");
+    scanf("%d", &showTime);
+    fflush(stdin);
     printf("Cargando datos...\n");
+
+    if (showTime == 1){
+        QueryPerformanceFrequency(&frequency);
+        QueryPerformanceCounter(&start);
+    }
 
     fgets(buffer, bufferSize, file); //Ignores the csv headers
     while(fgets(buffer, bufferSize, file) != NULL){
@@ -56,10 +74,17 @@ hashtable *loadFile(hashtable* hashTable, int technique){
         token = strtok(NULL, ";");
 
         newFilm->popularity = atoi(token);
-        printf("Película detectada\n");
+        //printf("Película detectada\n");
         addFilm(hashTable, newFilm, technique, 0);
-        showFilm(newFilm);
+        //showFilm(newFilm);
     }
+
+    if (showTime == 1){
+        QueryPerformanceCounter(&end);
+        interval = (double) (end.QuadPart - start.QuadPart) / frequency.QuadPart;
+        printf("Tiempo invertido: %f\n", interval);
+    }
+
 
     free(buffer);
     return hashTable;
@@ -129,29 +154,7 @@ int getLoadFactor(hashtable *hashTable, int technique){
     return result * 100;
 }
 
-/**
- * Sets every position in the table as free
- * @param hashtable
- * @param technique
- * @return hashtable
- */
-void cleanTable(hashtable* hashTable, int technique){
-    int tableSize = getTableSize(technique);
-    if (technique == 3){
-        for(int i = 0; i < tableSize; i++){
-            hashTable[i] = (hashitem*) malloc(sizeof(hashitem));
-            hashTable[i]->key = FREE;
-            hashTable[i]->next = NULL;
-        }
-    } else {
-        for(int i = 0; i < tableSize; i++){
-            hashTable[i] = (hashitem*) malloc(sizeof(hashitem));
-            hashTable[i]->key = FREE;
-        }
-    }
 
-
-}
 
 /**
  * Adds a film to the hashtable
@@ -173,7 +176,7 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique, int showCollisi
         hashTable[index]->film = newFilm;
         if(technique == 3){
             hashTable[index]->next = (hashitem*) malloc(sizeof(hashitem));
-            hashTable[index]->key = FREE;
+            hashTable[index]->next->key = FREE;
         }
     } else{
         //Collision
@@ -215,7 +218,7 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique, int showCollisi
 void searchOrDeleteOption(hashtable *hashTable, int technique, int action){
     char *title = (char*) malloc(sizeof(char) * 255);
     int year, duration, popularity;
-    film *filmFound;
+    hashitem *filmFound = NULL;
     int freeKey = FREE;
     int foundInPosition = -1; //Position where the film was really stored in
 
@@ -238,35 +241,43 @@ void searchOrDeleteOption(hashtable *hashTable, int technique, int action){
     scanf("%d", &popularity);
     fflush(stdin);
 
-    int hashcode = hash(year, duration, popularity);
-    int index = hashcode / getTableSize(technique);
+    int hashCode = hash(year, duration, popularity);
+    int index = hashCode % getTableSize(technique);
 
-    if (technique == 3){ // Chained
-        hashitem *aux = hashTable[index];
-        while (aux->key != freeKey){
+    if(technique == 3){ // Chained
+        filmFound = hashTable[index];
+        while (filmFound->key != freeKey){
             //Because the hashcode could not be unique, the function also compares the names
-            if (aux->key == hashcode && strcmp(aux->film->title, title) == 0){
-                printf("Película encontrada\n");
-                showFilm(aux->film);
-                //Deletes the film if needed
-                if (action == 2){
-                    delete(aux->film);
-                    aux->key = DELETED;
-                }
+            if (filmFound->key == hashCode && strcmp(filmFound->film->title, title) == 0){
                 foundInPosition = index; //To avoid the not found message for showing up
                 break;
             } else {
-                aux = aux->next;
+                filmFound = filmFound->next;
             }
         }
+    //the first try is always done in this method
+    } else if (hashTable[index]->key == hashCode && strcmp(title, hashTable[index]->film->title) == 0){
+        foundInPosition = index;
     } else if (technique == 1){ //Linear
-        foundInPosition = linearSearchCollisionHandler(hashTable, hashcode, title);
+        foundInPosition = linearSearchCollisionHandler(hashTable, hashCode, title);
     } else { //Key dependent
-
+        foundInPosition = keyDependentSearchCollisionHandler(hashTable, hashCode, title);
     }
 
     if (foundInPosition == -1){
         printf("Error, película no encontrada\n");
+    } else {
+        if (technique != 3) filmFound = hashTable[foundInPosition];
+
+        printf("Película encontrada\n");
+        showFilm(filmFound->film); //if filmFound is null, foundInPosition will be -1 so there are no worries of exceptions at this point
+
+        //Deletes the film if needed
+        if (action == 2){
+            delete(filmFound->film);
+            filmFound->key = DELETED;
+            printf("Película eliminada correctamente\n");
+        }
     }
 
     free(title);
@@ -276,32 +287,73 @@ void searchOrDeleteOption(hashtable *hashTable, int technique, int action){
 /**
  * Uses the Linear technique to handle a collision of search
  * @param hashTable
- * @param index int original position where the film should be in first place
+ * @param hashCode string the hashCode of the search
  * @param char* title of the film because the hashcode could not be unique
- * @return int position to insert the film in or -1 if no position have been found
+ * @return int position where the film is in or -1 if no position have been found
  */
-int linearSearchCollisionHandler(hashtable *hashTable, int hashcode, char* title){
-    int free = FREE;
+int linearSearchCollisionHandler(hashtable *hashTable, int hashCode, char* title){
+    int freeKey = FREE;
+    int deletedKey = DELETED;
     int tableSize = getTableSize(1);;
-    int firstIndex = hashcode % tableSize;
-    printf("Colisión en la posición: %d\n", firstIndex); //For the manually search, the collisions will be always showed
+    int firstIndex = hashCode % tableSize;
 
     for(int i = 0; i < tableSize; i++){
         int newIndex = (firstIndex + i) % tableSize;
-        if (hashTable[newIndex]->key == free){
+        if (hashTable[newIndex]->key == freeKey){
             return -1;
         }
 
-        if (hashTable[newIndex]->key == hashcode && strcmp(title, hashTable[newIndex]->film->title) == 0){
+        if (hashTable[newIndex]->key == hashCode && strcmp(title, hashTable[newIndex]->film->title) == 0){
             return newIndex;
         }
 
-        printf("Colisión en la posición: %d\n", newIndex);
+        if (hashTable[newIndex]->key != deletedKey){
+            //For the manually search, the collisions will be always showed
+            printf("Colisión en la posición: %d\n", newIndex);
+        }
 
     }
     return -1;
 
 }
+
+/**
+ * Uses the Key-dependent technique to handle a collision of search
+ * @param hashTable
+ * @param hashCode string the hashCode of the search
+ * @param char* title of the film because the hashcode could not be unique
+ * @return int position where the film is in or -1 if no position have been found
+ */
+int keyDependentSearchCollisionHandler(hashtable *hashTable, int hashCode, char* title){
+    int freeKey = FREE;
+    int deletedKey = DELETED;
+    int tableSize = getTableSize(2);
+    int d = 0;
+    int index = hashCode % tableSize;
+
+    for(int i = 0; i < tableSize; i++){
+        d = __max(1, hashCode / tableSize);
+        //To ensure a full exploration of the table, d and tableSize should be prime numbers between them
+        while (d >= tableSize && d % tableSize == 0){
+            d += 1;
+        }
+        int newIndex = (index + d * i) % tableSize;
+        if (hashTable[newIndex]->key == freeKey){
+            return -1;
+        }
+
+        if (hashTable[newIndex]->key == hashCode && strcmp(title, hashTable[newIndex]->film->title) == 0){
+            return newIndex;
+        }
+
+        if (hashTable[newIndex]->key != deletedKey){
+            //For the manually search, the collisions will be always showed
+            printf("Colisión en la posición: %d\n", newIndex);
+        }
+    }
+    return -1;
+}
+
 
 // ########## COLLISION HANDLING INSERT ##########
 
@@ -377,35 +429,42 @@ int chainedCollisionHandler(hashtable *hashTable, film *newFilm, int hashcode, i
 
 
     hashitem *auxItem = (hashitem*) malloc(sizeof(hashitem));
-    auxItem->next = hashTable[index]->next;
+    auxItem->next = hashTable[index];
     auxItem->key = hashcode;
     auxItem->film = newFilm;
     hashTable[index] = auxItem;
 
-     return 1;
-
-    /*
-    //Iterates over the list until a free space is found
-    while (auxItem->next != NULL) {
-        auxItem = auxItem->next;
-    }
-
-    if (auxItem->next == NULL){
-        auxItem->next = (hashitem*) malloc(sizeof(hashitem)
-        auxItem = auxItem->next;
-        auxItem->key = hashcode;
-        auxItem->film = newFilm;
-        auxItem->next = NULL;
-        return 1;
-    }
-
-    return -1;*/
-
+    return 1;
 }
 
 
 
 // ########## AUX FUNCTIONS ##########
+
+
+/**
+ * Sets every position in the table as free
+ * @param hashtable
+ * @param technique
+ * @return hashtable
+ */
+void cleanTable(hashtable* hashTable, int technique){
+    int tableSize = getTableSize(technique);
+    if (technique == 3){
+        for(int i = 0; i < tableSize; i++){
+            hashTable[i] = (hashitem*) malloc(sizeof(hashitem));
+            hashTable[i]->key = FREE;
+            hashTable[i]->next = NULL;
+        }
+    } else {
+        for(int i = 0; i < tableSize; i++){
+            hashTable[i] = (hashitem*) malloc(sizeof(hashitem));
+            hashTable[i]->key = FREE;
+        }
+    }
+
+
+}
 
 /**
  * Returns the table size based in the technique used
