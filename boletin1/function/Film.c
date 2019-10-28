@@ -34,7 +34,9 @@ void showFilm(film *film){
  * @param film
  */
 void delete(film *film){
-    free(film->title);
-    free(film->genre);
-    free(film);
+    if (film != NULL){
+        free(film->title);
+        free(film->genre);
+        free(film);
+    }
 }

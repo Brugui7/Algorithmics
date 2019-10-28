@@ -47,6 +47,7 @@ int keyDependentSearchCollisionHandler(hashtable *hashTable, int hashCode, char*
 int getLoadFactor(hashtable *hashTable, int technique);
 
 // AUX
+void destroyEverything(hashtable* hashTable, int technique);
 
 int getTableSize(int technique);
 

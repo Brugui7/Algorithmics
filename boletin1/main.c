@@ -53,6 +53,7 @@ void showMenu(hashtable *hashTable) {
                 break;
             case 6:
                 printf("Saliendo...");
+                destroyEverything(hashTable, technique);
                 break;
             default:
                 printf("Por favor seleccione una opción válida\n");
@@ -95,5 +96,4 @@ int main() {
     int aux = TABLE_SIZE
     hashtable* hashTable = (hashtable*) malloc(sizeof(hashTable) * aux);
     showMenu(hashTable);
-    //destroyEverything(hashTable);
 }

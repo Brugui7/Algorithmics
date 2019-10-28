@@ -500,3 +500,17 @@ int isPrimeNumber(int number) {
     }
     return 1;
 }
+
+/**
+ * Frees all the memory allocated
+ * @param hashTable
+ */
+void destroyEverything(hashtable *hashTable,int technique){
+    int tableSize = getTableSize(technique);
+    for(int i = 0; i < tableSize; i++){
+        delete(hashTable[i]->film);
+        free(hashTable[i]);
+    }
+    free(hashTable);
+
+}
