@@ -24,9 +24,12 @@ void showMenu(hashtable *hashTable) {
     while (option != 3) {
         printf("\n############### MENU BOLETÍN 1 ###############\n"
                "Indique qué acción desea realizar\n"
-               "\t1. Cargar el fichero\n"
-               "\t2. Insertar manualmente\n"
-               "\t3. Salir\n");
+               "\t1. Cargar el fichero.\n"
+               "\t2. Insertar manualmente.\n"
+               "\t3. Buscar.\n"
+               "\t4. Eliminar.\n"
+               "\t5. Consultar factor de carga.\n"
+               "\t6. Salir.\n");
         printf("> ");
 
         scanf("%d", &option);
@@ -39,6 +42,15 @@ void showMenu(hashtable *hashTable) {
                 insertFilm(hashTable, technique);
                 break;
             case 3:
+                searchOrDeleteOption(hashTable, technique, 1);
+                break;
+            case 4:
+                searchOrDeleteOption(hashTable, technique, 2);
+                break;
+            case 5:
+                printf("Factor de carga del %d%%\n", getLoadFactor(hashTable, technique));
+                break;
+            case 6:
                 printf("Saliendo...");
                 break;
             default:

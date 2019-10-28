@@ -28,3 +28,13 @@ void showFilm(film *film){
             film->title, film->genre, film->duration, film->year, film->popularity
             );
 }
+
+/**
+ * Frees all the fields of a film
+ * @param film
+ */
+void delete(film *film){
+    free(film->title);
+    free(film->genre);
+    free(film);
+}

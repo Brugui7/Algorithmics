@@ -20,5 +20,7 @@ int hash(int year, int duration, int popularity);
 
 void showFilm(film *film);
 
+void delete(film *film);
+
 #endif //ALGORITHMICS_FILM_H
 

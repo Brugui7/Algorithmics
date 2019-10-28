@@ -106,8 +106,7 @@ hashtable *insertFilm(hashtable *hashTable, int technique){
     printf("Guardando datos...\n");
     showFilm(newFilm);
     addFilm(hashTable, newFilm, technique, 1);
-    int loadFactor = getLoadFactor(hashTable, technique);
-    printf("Factor de carga del %d%%\n", loadFactor);
+    printf("Factor de carga del %d%%\n", getLoadFactor(hashTable, technique);
     free(buffer);
     return hashTable;
 }
@@ -173,7 +172,8 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique, int showCollisi
         hashTable[index]->key = hashCode;
         hashTable[index]->film = newFilm;
         if(technique == 3){
-            //hashTable[index]->next = hashitem malloc(); TODO: set key as free
+            hashTable[index]->next = (hashitem*) malloc(sizeof(hashitem));
+            hashTable[index]->key = FREE;
         }
     } else{
         //Collision
@@ -216,12 +216,16 @@ void searchOrDeleteOption(hashtable *hashTable, int technique, int action){
     char *title = (char*) malloc(sizeof(char) * 255);
     int year, duration, popularity;
     film *filmFound;
+    int free = FREE;
+    int foundInPosition = -1; //Position where the film was really stored in
 
     printf("Introduzca el nombre de la película\n> ");
     gets(title);
     fflush(stdin);
     title = (char *) realloc(title, (sizeof(title) + 1) * sizeof(char));
 
+
+    //Asks the film data
     printf("Introduzca el año de la película\n> ");
     scanf("%d", &year);
     fflush(stdin);
@@ -236,8 +240,33 @@ void searchOrDeleteOption(hashtable *hashTable, int technique, int action){
 
     int hashcode = hash(year, duration, popularity);
     int index = hashcode / getTableSize(technique);
-    if (technique == 3){
-        while ()
+
+    if (technique == 3){ // Chained
+        hashitem *aux = hashTable[index];
+        while (aux->key != free){
+            //Because the hashcode could not be unique, the function also compares the names
+            if (aux->key == hashcode && strcmp(aux->film->title, title) == 0){
+                printf("Película encontrada\n");
+                showFilm(aux->film);
+                //Deletes the film if needed
+                if (action == 2){
+                    delete(aux->film);
+                    aux->key = DELETED;
+                }
+                foundInPosition = index; //To avoid the not found message for showing up
+                break;
+            } else {
+                aux = aux->next;
+            }
+        }
+    } else if (technique == 1){ //Linear
+        foundInPosition = linearSearchCollisionHandler(hashTable, hashcode, title);
+    } else { //Key dependent
+
+    }
+
+    if (foundInPosition == -1){
+        printf("Error, película no encontrada\n");
     }
 
     free(title);
@@ -248,14 +277,14 @@ void searchOrDeleteOption(hashtable *hashTable, int technique, int action){
  * Uses the Linear technique to handle a collision of search
  * @param hashTable
  * @param index int original position where the film should be in first place
- * @param int 1 to show a message on collisions, 0 if not
+ * @param char* title of the film because the hashcode could not be unique
  * @return int position to insert the film in or -1 if no position have been found
  */
-int linearSearchCollisionHandler(hashtable *hashTable, int hashcode, char* title, int showCollisions){
+int linearSearchCollisionHandler(hashtable *hashTable, int hashcode, char* title){
     int free = FREE;
     int tableSize = getTableSize(1);;
     int firstIndex = hashcode % tableSize;
-    if (showCollisions) printf("Colisión en la posición: %d\n", firstIndex);
+    printf("Colisión en la posición: %d\n", firstIndex); //For the manually search, the collisions will be always showed
 
     for(int i = 0; i < tableSize; i++){
         int newIndex = (firstIndex + i) % tableSize;
@@ -267,8 +296,7 @@ int linearSearchCollisionHandler(hashtable *hashTable, int hashcode, char* title
             return newIndex;
         }
 
-
-        if (showCollisions) printf("Colisión en la posición: %d\n", newIndex);
+        printf("Colisión en la posición: %d\n", newIndex);
 
     }
     return -1;

@@ -37,9 +37,14 @@ int keyDependentCollisionHandler(hashtable *hashTable, int hashCode, int showCol
 
 int chainedCollisionHandler(hashtable *hashTable, film *newFilm, int hashcode, int showCollisions);
 
+// SEARCH
+void searchOrDeleteOption(hashtable *hashTable, int technique, int action);
+
+int linearSearchCollisionHandler(hashtable *hashTable, int hashcode, char* title);
+
 int getLoadFactor(hashtable *hashTable, int technique);
 
-void searchOrDeleteOption(hashtable *hashTable, int technique, int action);
+// AUX
 
 int getTableSize(int technique);
 
