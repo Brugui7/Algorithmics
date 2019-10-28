@@ -106,7 +106,7 @@ hashtable *insertFilm(hashtable *hashTable, int technique){
     printf("Guardando datos...\n");
     showFilm(newFilm);
     addFilm(hashTable, newFilm, technique, 1);
-    printf("Factor de carga del %d%%\n", getLoadFactor(hashTable, technique);
+    printf("Factor de carga del %d%%\n", getLoadFactor(hashTable, technique));
     free(buffer);
     return hashTable;
 }
@@ -216,13 +216,13 @@ void searchOrDeleteOption(hashtable *hashTable, int technique, int action){
     char *title = (char*) malloc(sizeof(char) * 255);
     int year, duration, popularity;
     film *filmFound;
-    int free = FREE;
+    int freeKey = FREE;
     int foundInPosition = -1; //Position where the film was really stored in
 
     printf("Introduzca el nombre de la película\n> ");
     gets(title);
     fflush(stdin);
-    title = (char *) realloc(title, (sizeof(title) + 1) * sizeof(char));
+    title = (char *) realloc(title, (strlen(title) + 1) * sizeof(char));
 
 
     //Asks the film data
@@ -243,7 +243,7 @@ void searchOrDeleteOption(hashtable *hashTable, int technique, int action){
 
     if (technique == 3){ // Chained
         hashitem *aux = hashTable[index];
-        while (aux->key != free){
+        while (aux->key != freeKey){
             //Because the hashcode could not be unique, the function also compares the names
             if (aux->key == hashcode && strcmp(aux->film->title, title) == 0){
                 printf("Película encontrada\n");
