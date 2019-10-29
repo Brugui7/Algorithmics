@@ -67,7 +67,6 @@ hashtable *loadFile(hashtable* hashTable, int technique){
         strncpy(newFilm->title, token, length);
         token = strtok(NULL, ";");
 
-
         length = strlen(token);
         newFilm->genre = (char *) malloc(++length * sizeof(char));
         strncpy(newFilm->genre, token, length);
@@ -168,8 +167,6 @@ void addFilm(hashtable *hashTable, film *newFilm, int technique, int showCollisi
     int index = hashCode % getTableSize(technique);
     int free = FREE;
     int deleted = DELETED;
-
-
 
     if (hashTable[index]->key == free || hashTable[index]->key == deleted){
         hashTable[index]->key = hashCode;
