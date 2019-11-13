@@ -42,16 +42,16 @@ void mainExercise1(){
  * @param step
  * @return
  */
-int magicSquareRec(int n, int *solution, int step, int test){
+int magicSquareRec(int n, int *solution, int step, int firstRowSum){
     if(step == n*n) return 0;
     int existsSolution = 0;
-    int rowSum = test;
+    int rowSum = firstRowSum;
     //The initial value is 0 so the first value tried is 1 because 0 is not a valid number on a magic square
     solution[step] = 0;
     do{
         solution[step]+=1;
         //TODO: Aquí se crea un nodo nuevo
-        if(isReachable(n, solution, step, test) == 1){
+        if(isReachable(n, solution, step, firstRowSum) == 1){
 
 
 
@@ -85,7 +85,7 @@ int magicSquareRec(int n, int *solution, int step, int test){
  * @param step
  * @return 0 false 1 true
  */
-int isReachable(int n, int *solution, int step, int test){
+int isReachable(int n, int *solution, int step, int firstRowSum){
     for(int i = 0; i < step + 1; i++){
         if(solution[i] > n*n) return 0;
         for(int j = 0; j < step + 1; j++){
@@ -95,14 +95,18 @@ int isReachable(int n, int *solution, int step, int test){
     }
 
     if (step > n){
+        //Sums the values of every row after the first one
+        //if the sum of any row is greater than the first, the solution is not reachable
         int rowSum = 0;
         for(int i = n; i < step; i++){
             int column = i % n;
             if(column == 0) rowSum = 0;
             rowSum += solution[i];
-            if (rowSum > test) return 0;
+            if (rowSum > firstRowSum) return 0;
         }
 
+        //Sums the values of every column
+        //if the sum of any column is greater than the sum of the first row, the solution is not reachable
         if (step / n == n - 1){
             for (int i = 0; i < step; i++) {
                 int columnSum = 0;
@@ -111,7 +115,7 @@ int isReachable(int n, int *solution, int step, int test){
                     int position = j * n + i;
                     if (position > step) break;
                     columnSum += solution[position];
-                    if (columnSum > test) return 0;
+                    if (columnSum > firstRowSum) return 0;
                 }
             }
         }
