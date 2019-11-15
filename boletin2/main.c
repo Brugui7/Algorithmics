@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 #include "Exercise1.h"
+#include "Exercise2.h"
+
 
 
 
@@ -33,7 +35,7 @@ void showMenu() {
                 mainExercise1();
                 break;
             case 2:
-                //TODO
+                mainExercise2();
                 break;
             case 3:
                 printf("Saliendo...");

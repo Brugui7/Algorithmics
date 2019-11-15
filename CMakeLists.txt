@@ -9,4 +9,4 @@ add_executable(Algorithmics
     boletin2/main.c
         boletin2/model/Exercise1.h
         boletin2/function/Exercise1.c
-        )
+        boletin2/function/Exercise2.c boletin2/model/Exercise2.h)

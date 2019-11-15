@@ -1,6 +1,9 @@
-//
-// Created by Brugui on 11/11/2019.
-//
+/**
+ * @file
+ * @brief Exercise 1 header file
+ * @author: Alejandro Brugarolas
+ * @since: 2019-11
+*/
 
 #ifndef ALGORITHMICS_EXERCISE1_H
 #define ALGORITHMICS_EXERCISE1_H
