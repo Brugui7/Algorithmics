@@ -14,6 +14,7 @@ void mainExercise2(){
     char fileName[100] = "";
     FILE *file = NULL;
     song* songList = NULL;
+    int n = 0; //songs number
 
     //Asks for the file to load the data
     while (file == NULL) {
@@ -24,6 +25,12 @@ void mainExercise2(){
     }
 
     songList = loadFile(file, songList);
+    song *aux = songList;
+    while (aux != NULL){
+        n++;
+        aux = aux->next;
+    }
+
 
 
 }
