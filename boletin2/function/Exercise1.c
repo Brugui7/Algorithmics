@@ -53,17 +53,13 @@ int magicSquareRec(int n, int *solution, int step, int firstRowSum){
         //TODO: Aquí se crea un nodo nuevo
         if(isReachable(n, solution, step, firstRowSum) == 1){
 
-
-
             if(isSolution(n, solution, step) == 1){
                 showSolution(n, solution);
                 return 1;
             } else {
-
+                //Sums the values of the first row
                 if (step == n-1){
-                    int position = 0;
                     rowSum = 0;
-
                     for (int i = 0; i < n; i++) {
                         rowSum += solution[i];
                     }
@@ -86,15 +82,19 @@ int magicSquareRec(int n, int *solution, int step, int firstRowSum){
  * @return 0 false 1 true
  */
 int isReachable(int n, int *solution, int step, int firstRowSum){
-    for(int i = 0; i < step + 1; i++){
-        if(solution[i] > n*n) return 0;
-        for(int j = 0; j < step + 1; j++){
-            if (i == j) continue;
-            if(solution[i] == solution[j]) return 0;
-        }
-    }
+
 
     if (step > n){
+        //Because every number between 1 and n*n must be on the square,
+        //The minimum value on a row has to be n*n plus the sum of 1 to n and the maximum one must be the contrary
+        int aux = n*n;
+        int minValue = aux, maxValue = aux;
+        for( int i = 1; i < n; i++){
+            minValue += i;
+            maxValue += aux - i;
+        }
+        if (firstRowSum < minValue || firstRowSum > maxValue) return 0;
+
         //Sums the values of every row after the first one
         //if the sum of any row is greater than the first, the solution is not reachable
         int rowSum = 0;
@@ -122,6 +122,13 @@ int isReachable(int n, int *solution, int step, int firstRowSum){
 
     }
 
+    for(int i = 0; i < step + 1; i++){
+        if(solution[i] > n*n) return 0;
+        for(int j = 0; j < step + 1; j++){
+            if (i == j) continue;
+            if(solution[i] == solution[j]) return 0;
+        }
+    }
 
     return 1;
 }
