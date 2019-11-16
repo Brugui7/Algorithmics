@@ -20,4 +20,6 @@ void mainExercise2();
 
 song *loadFile(FILE *file, song* songList);
 
+int createAlbumRec(int n, int solution[], int step, int bestSolution[]);
+
 #endif //ALGORITHMICS_EXERCISE2_H

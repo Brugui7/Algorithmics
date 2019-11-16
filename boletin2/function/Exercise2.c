@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ALBUM_SIZE 12
+
 void mainExercise2(){
     char fileName[100] = "";
     FILE *file = NULL;
@@ -33,6 +35,44 @@ void mainExercise2(){
 
 
 
+}
+
+/**
+ *
+ * @param n
+ * @param solution
+ * @param step
+ * @param bestSolution
+ * @return
+ */
+int createAlbumRec(int n, int solution[], int step, int bestSolution[]){
+    if(step == ALBUM_SIZE) return 0;
+    int existsSolution = 0;
+    //The initial value is 0 so the first value tried is 1 because 0 is not a valid number on a magic square
+    solution[step] = 0;
+    do{
+        solution[step] += 1;
+        //TODO: Aquí se crea un nodo nuevo
+        /*if(isReachable(n, solution, step, firstRowSum) == 1){
+
+            //if(isSolution(n, solution, step) == 1){
+                //keepBetterSolution(n, solution);
+                return 1;
+            } else {
+                //Sums the values of the first row
+                if (step == n-1){
+                    rowSum = 0;
+                    for (int i = 0; i < n; i++) {
+                        rowSum += solution[i];
+                    }
+                }
+
+                existsSolution = createAlbumRec(n, solution, step + 1, bestSolution);
+            }
+        }*/
+
+    } while (existsSolution != 1 && solution[step] != n*n);
+    return existsSolution;
 }
 
 /**
