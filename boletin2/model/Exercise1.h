@@ -14,7 +14,7 @@ int isReachable(int n, int *solution, int step, int firstRowSum);
 
 int magicSquareRec(int n, int *solution, int step, int firstRowSum);
 
-int isSolution(int n, int *solution, int step);
+int isSolution(int n, int *solution, int step, int magicConstant);
 
 void showSolution(int n, int *solution);
 
