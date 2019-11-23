@@ -18,5 +18,7 @@ int isSolution(int n, int *solution, int step);
 
 void showSolution(int n, int *solution);
 
+int getMagicConstant(int n);
+
 
 #endif //ALGORITHMICS_EXERCISE1_H

@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Exercise1.h"
-
+int nodes = 0;
 
 /**
  * Shows a menu asking for the value of N and calls the recursive method
@@ -27,9 +27,10 @@ void mainExercise1(){
     }
 
     int *solution = (int*) malloc(sizeof(int) * n * n);
-    if (magicSquareRec(n, solution, 0, -1) == 0){
-        printf("No existe solución para este valor de n");
+    if (magicSquareRec(n, solution, 0, getMagicConstant(n)) == 0){
+        printf("No existe solución para este valor de n\n");
     }
+    printf("Nodos: %d\n", nodes);
     free(solution);
 
 }
@@ -40,32 +41,25 @@ void mainExercise1(){
  * @param n
  * @param solution
  * @param step
+ * @param magicConstant
  * @return
  */
-int magicSquareRec(int n, int *solution, int step, int firstRowSum){
+int magicSquareRec(int n, int *solution, int step, int magicConstant){
     if(step == n*n) return 0;
     int existsSolution = 0;
-    int rowSum = firstRowSum;
     //The initial value is 0 so the first value tried is 1 because 0 is not a valid number on a magic square
     solution[step] = 0;
     do{
-        solution[step]+=1;
+        solution[step] += 1;
         //TODO: Aquí se crea un nodo nuevo
-        if(isReachable(n, solution, step, firstRowSum) == 1){
+        nodes++;
+        if(isReachable(n, solution, step, magicConstant) == 1){
 
             if(isSolution(n, solution, step) == 1){
                 showSolution(n, solution);
                 return 1;
             } else {
-                //Sums the values of the first row
-                if (step == n-1){
-                    rowSum = 0;
-                    for (int i = 0; i < n; i++) {
-                        rowSum += solution[i];
-                    }
-                }
-
-                existsSolution = magicSquareRec(n, solution, step + 1, rowSum);
+                existsSolution = magicSquareRec(n, solution, step + 1, magicConstant);
             }
         }
 
@@ -75,47 +69,54 @@ int magicSquareRec(int n, int *solution, int step, int firstRowSum){
 
 
 /**
- * Checks if the values could fit on a valid solution
+ * Checks if the partial solution would can be a valid one.
  * @param n
  * @param solution
  * @param step
- * @return 0 false 1 true
+ * @param magicConstant
+ * @return
  */
-int isReachable(int n, int *solution, int step, int firstRowSum){
+int isReachable(int n, int *solution, int step, int magicConstant){
 
+    if (step == n - 1){
+        int rowSum = 0;
+        for (int i = 0; i < n; i++) {
+            rowSum += solution[i];
+        }
+        if (rowSum != magicConstant) return 0;
+    }
 
     if (step > n){
-        //Because every number between 1 and n*n must be on the square,
-        //The minimum value on a row has to be n*n plus the sum of 1 to n and the maximum one must be the contrary
-        int aux = n*n;
-        int minValue = aux, maxValue = aux;
-        for( int i = 1; i < n; i++){
-            minValue += i;
-            maxValue += aux - i;
-        }
-        if (firstRowSum < minValue || firstRowSum > maxValue) return 0;
 
         //Sums the values of every row after the first one
-        //if the sum of any row is greater than the first, the solution is not reachable
+        //if the sum of a completed row isn't the same of the magic constant, the solution is not reachable
+        //if the sum of any row is greater than the first, the solution is also not reachable
         int rowSum = 0;
         for(int i = n; i < step; i++){
             int column = i % n;
-            if(column == 0) rowSum = 0;
+            if(column == 0){
+                if (rowSum != 0 && rowSum != magicConstant) return 0;
+                rowSum = 0;
+            }
             rowSum += solution[i];
-            if (rowSum > firstRowSum) return 0;
+            if (rowSum > magicConstant) return 0;
         }
 
         //Sums the values of every column
-        //if the sum of any column is greater than the sum of the first row, the solution is not reachable
+        //if the sum of a completed column isn't the same of the magic constant, the solution is not reachable
+        //if the sum of any column is greater than the sum of the first row, the solution is also not reachable
         if (step / n == n - 1){
+            int columnSum = 0;
+            int position = 0;
             for (int i = 0; i < step; i++) {
-                int columnSum = 0;
+                if (columnSum != 0 && position <= step && columnSum != magicConstant) return 0;
+                columnSum = 0;
                 for(int j = 0; j < n; j++){
                     //Column  Major order to sum the column values
-                    int position = j * n + i;
+                    position = j * n + i;
                     if (position > step) break;
                     columnSum += solution[position];
-                    if (columnSum > firstRowSum) return 0;
+                    if (columnSum > magicConstant) return 0;
                 }
             }
         }
@@ -123,7 +124,6 @@ int isReachable(int n, int *solution, int step, int firstRowSum){
     }
 
     for(int i = 0; i < step + 1; i++){
-        if(solution[i] > n*n) return 0;
         for(int j = 0; j < step + 1; j++){
             if (i == j) continue;
             if(solution[i] == solution[j]) return 0;
@@ -189,4 +189,14 @@ void showSolution(int n, int *solution){
         }
         printf("\n");
     }
+}
+
+/**
+ * Returns the magic constant that every row, column and diagonal must sum
+ * Formula: n[(n^2+1)/2]
+ * @param n
+ * @return
+ */
+int getMagicConstant(int n){
+    return n * ((n * n + 1) / 2);
 }
