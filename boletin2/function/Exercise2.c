@@ -9,7 +9,6 @@
 
 #include <stdlib.h>
 #include <string.h>
-
 #define ALBUM_SIZE 12
 #define ALBUM_LENGTH 40
 
@@ -37,8 +36,7 @@ void mainExercise2(){
     int *solution = (int*) malloc(sizeof(int) * ALBUM_SIZE);
     int *bestSolution = (int*) malloc(sizeof(int) * ALBUM_SIZE);
 
-    createAlbumRec(n, solution, 0, bestSolution, songList);
-
+    //createAlbumRec(n, solution, 0, bestSolution, songList);
     free(solution);
     free(bestSolution);
 }
@@ -52,15 +50,14 @@ void mainExercise2(){
  * @return
  */
 void createAlbumRec(int n, int *solution, int step, int *bestSolution, song* songList){
-    if(step == ALBUM_SIZE) return;
+    if(step == n) return;
     int aux = 0;
     do{
-        //The first try is not taking this song to make the album
+        //The first try is not taking the song to make the album
         solution[step] = aux;
         //TODO: Aquí se crea un nodo nuevo
         if(isValid(n, solution, step, songList) == 1){
             if(step == n - 1){
-
                 //keepBetterSolution(n, solution);
                 printf("din din din");
             } else {
@@ -78,13 +75,14 @@ int isValid(int n, int *solution, int step, song* songList){
     int secondsLength = ALBUM_LENGTH * 60;
     int songsNumber = 0;
     song *aux = songList;
-    for (int i = 0; i < step && aux != NULL; ++i) {
+
+    for (int i = 0; i <= step; i++) {
         if(solution[i] == 1){
             songsNumber++;
             seconds += aux->duration;
-            aux = aux->next;
             if (seconds > secondsLength || songsNumber > ALBUM_SIZE) return 0;
         }
+        aux = aux->next;
     }
 
     if (step == n - 1){
@@ -108,16 +106,18 @@ song *loadFile(FILE *file, song* songList){
     char *token;
     size_t bufferSize = 255;
     int i = 0; //Aux variable to get the song id
+    song *lastSong = (song*) malloc(sizeof(song));
 
     while(fgets(buffer, bufferSize, file) != NULL){
         song *newSong = (song*) malloc(sizeof(song));
+        if (i == 0) songList = lastSong;
 
         //Sets the song id
         sprintf(idBuffer, "C%d", ++i);
         newSong->id = (char*) malloc(sizeof(char) * strlen(idBuffer) + 1);
         strncpy(newSong->id, idBuffer, strlen(idBuffer) + 1);
 
-        strtok(buffer, ";");
+        //strtok(buffer, ";");
         //The duration comes in format minutes:seconds
         token = strtok(buffer, ":");
 
@@ -129,9 +129,15 @@ song *loadFile(FILE *file, song* songList){
 
         newSong->popularity = atoi(token);
 
-        newSong->next = (struct song*) malloc(sizeof(song));
-        newSong->next = songList;
-        songList = newSong;
+
+        //To insert the list ordered keeps the track of the first song
+        if (i == 1){
+            songList = newSong;
+        } else{
+            lastSong->next = newSong;
+            newSong->next = NULL;
+        }
+        lastSong = newSong;
     }
 
     free(buffer);
