@@ -9,9 +9,15 @@
 
 #include <stdlib.h>
 #include <string.h>
-#define ALBUM_SIZE 12
-#define ALBUM_LENGTH 40
 
+//This could be entered by the user and passed by parameters too
+#define ALBUM_SIZE 12   //Number of songs that must be in the album
+#define ALBUM_LENGTH 40 //Total time in minutes
+
+/**
+ * Shows a menu asking for the path where the file is,
+ * Loads the data and calls the recursive method
+ */
 void mainExercise2(){
     char fileName[100] = "";
     FILE *file = NULL;
@@ -93,6 +99,7 @@ int isValid(int n, int *solution, int step, song* songList){
     }
 
     if (step == n - 1){
+        //The album can't have more than two minutes without music
         if (songsNumber != ALBUM_SIZE || secondsLength - seconds > 120) return 0;
     }
 
