@@ -11,6 +11,7 @@
 #include <string.h>
 
 #define ALBUM_SIZE 12
+#define ALBUM_LENGTH 40
 
 void mainExercise2(){
     char fileName[100] = "";
@@ -33,8 +34,13 @@ void mainExercise2(){
         aux = aux->next;
     }
 
+    int *solution = (int*) malloc(sizeof(int) * ALBUM_SIZE);
+    int *bestSolution = (int*) malloc(sizeof(int) * ALBUM_SIZE);
 
+    createAlbumRec(n, solution, 0, bestSolution, songList);
 
+    free(solution);
+    free(bestSolution);
 }
 
 /**
@@ -45,34 +51,47 @@ void mainExercise2(){
  * @param bestSolution
  * @return
  */
-int createAlbumRec(int n, int solution[], int step, int bestSolution[]){
-    if(step == ALBUM_SIZE) return 0;
-    int existsSolution = 0;
-    //The initial value is 0 so the first value tried is 1 because 0 is not a valid number on a magic square
-    solution[step] = 0;
+void createAlbumRec(int n, int *solution, int step, int *bestSolution, song* songList){
+    if(step == ALBUM_SIZE) return;
+    int aux = 0;
     do{
-        solution[step] += 1;
+        //The first try is not taking this song to make the album
+        solution[step] = aux;
         //TODO: Aquí se crea un nodo nuevo
-        /*if(isReachable(n, solution, step, firstRowSum) == 1){
+        if(isValid(n, solution, step, songList) == 1){
+            if(step == n - 1){
 
-            //if(isSolution(n, solution, step) == 1){
                 //keepBetterSolution(n, solution);
-                return 1;
+                printf("din din din");
             } else {
-                //Sums the values of the first row
-                if (step == n-1){
-                    rowSum = 0;
-                    for (int i = 0; i < n; i++) {
-                        rowSum += solution[i];
-                    }
-                }
-
-                existsSolution = createAlbumRec(n, solution, step + 1, bestSolution);
+                createAlbumRec(n, solution, step + 1, bestSolution, songList);
             }
-        }*/
+        }
+        aux++;
+    } while (solution[step] != 1);
+    solution[step] = -1;
+}
 
-    } while (existsSolution != 1 && solution[step] != n*n);
-    return existsSolution;
+
+int isValid(int n, int *solution, int step, song* songList){
+    int seconds = 0;
+    int secondsLength = ALBUM_LENGTH * 60;
+    int songsNumber = 0;
+    song *aux = songList;
+    for (int i = 0; i < step && aux != NULL; ++i) {
+        if(solution[i] == 1){
+            songsNumber++;
+            seconds += aux->duration;
+            aux = aux->next;
+            if (seconds > secondsLength || songsNumber > ALBUM_SIZE) return 0;
+        }
+    }
+
+    if (step == n - 1){
+        if (songsNumber != ALBUM_SIZE || secondsLength - seconds > 120) return 0;
+    }
+
+    return 1;
 }
 
 /**
@@ -107,7 +126,6 @@ song *loadFile(FILE *file, song* songList){
         token = strtok(NULL, ";");
         newSong->duration += atoi(token); //To get the seconds
         token = strtok(NULL, ";");
-
 
         newSong->popularity = atoi(token);
 

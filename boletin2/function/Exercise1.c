@@ -48,7 +48,7 @@ void mainExercise1(){
 
 
 /**
- *
+ * Where the magic happens
  * @param n
  * @param solution
  * @param step
