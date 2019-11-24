@@ -8,13 +8,11 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include "Exercise1.h"
-int nodes = 0;
 
 /**
  * Shows a menu asking for the value of N and calls the recursive method
  */
 void mainExercise1(){
-    nodes = 0;
     //For time measuring
     struct timeval start, end;
     double timeInvested;
@@ -34,6 +32,8 @@ void mainExercise1(){
 
     int *solution = (int*) malloc(sizeof(int) * n * n);
     gettimeofday(&start, NULL);
+
+
     if (magicSquareRec(n, solution, 0, getMagicConstant(n)) == 0){
         printf("No existe solución para este valor de n\n");
     }
@@ -41,7 +41,7 @@ void mainExercise1(){
     timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
                     end.tv_usec - start.tv_usec) / 1.e6;
 
-    printf("Nodos: %d\tTiempo %f\n", nodes, timeInvested);
+    printf("\tTiempo Invertido %f\n", timeInvested);
     free(solution);
 
 }
@@ -63,7 +63,6 @@ int magicSquareRec(int n, int *solution, int step, int magicConstant){
     do{
         solution[step] += 1;
         //TODO: Aquí se crea un nodo nuevo
-        nodes++;
         if(isReachable(n, solution, step, magicConstant) == 1){
 
             if(isSolution(n, solution, step, magicConstant) == 1){
@@ -159,6 +158,7 @@ int isReachable(int n, int *solution, int step, int magicConstant){
 
 /**
  * Checks if its a valid solution for the problem
+ * Because isReachable takes care of almost everything, this function just has to check the step and the diagonal sum
  * @param n
  * @param solution
  * @param step
@@ -201,5 +201,6 @@ void showSolution(int n, int *solution){
  * @return
  */
 int getMagicConstant(int n){
-    return n * ((n * n + 1) / 2);
+    double aux = (float) (n * n + 1) / 2.0f;
+    return aux * n;
 }
