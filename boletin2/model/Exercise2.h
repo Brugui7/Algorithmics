@@ -24,4 +24,8 @@ void createAlbumRec(int n, int *solution, int step, int *bestSolution, song* son
 
 int isValid(int n, int *solution, int step, song* songList);
 
+void keepBetterSolution(int n, int *solution, int *bestSolution, song* songList);
+
+void showAlbum(int n, int *solution, song* songList);
+
 #endif //ALGORITHMICS_EXERCISE2_H

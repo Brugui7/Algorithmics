@@ -20,7 +20,7 @@ void mainExercise2(){
 
     //Asks for the file to load the data
     while (file == NULL) {
-        printf("Introduzca la ruta al archivo de datos\n> ");
+        printf("Introduzca la ruta al archivo de datos\n>");
         gets(fileName);
         fflush(stdin);
         file = fopen(fileName, "r");
@@ -33,10 +33,12 @@ void mainExercise2(){
         aux = aux->next;
     }
 
-    int *solution = (int*) malloc(sizeof(int) * ALBUM_SIZE);
-    int *bestSolution = (int*) malloc(sizeof(int) * ALBUM_SIZE);
+    int *solution = (int*) malloc(sizeof(int) * n);
+    int *bestSolution = (int*) malloc(sizeof(int) * n);
 
-    //createAlbumRec(n, solution, 0, bestSolution, songList);
+    createAlbumRec(n, solution, 0, bestSolution, songList);
+    showAlbum(n, bestSolution, songList);
+
     free(solution);
     free(bestSolution);
 }
@@ -55,11 +57,9 @@ void createAlbumRec(int n, int *solution, int step, int *bestSolution, song* son
     do{
         //The first try is not taking the song to make the album
         solution[step] = aux;
-        //TODO: Aquí se crea un nodo nuevo
         if(isValid(n, solution, step, songList) == 1){
             if(step == n - 1){
-                //keepBetterSolution(n, solution);
-                printf("din din din");
+                keepBetterSolution(n, solution, bestSolution, songList);
             } else {
                 createAlbumRec(n, solution, step + 1, bestSolution, songList);
             }
@@ -69,7 +69,14 @@ void createAlbumRec(int n, int *solution, int step, int *bestSolution, song* son
     solution[step] = -1;
 }
 
-
+/**
+ * Checks if the album matches all the conditions
+ * @param n
+ * @param solution
+ * @param step
+ * @param songList
+ * @return
+ */
 int isValid(int n, int *solution, int step, song* songList){
     int seconds = 0;
     int secondsLength = ALBUM_LENGTH * 60;
@@ -90,6 +97,55 @@ int isValid(int n, int *solution, int step, song* songList){
     }
 
     return 1;
+}
+
+/**
+ *
+ * @param n
+ * @param solution
+ * @param bestSolution
+ * @param songList
+ */
+void keepBetterSolution(int n, int *solution, int *bestSolution, song* songList){
+    int bestSolutionPopularity = 0;
+    int actualSolutionPopularity = 0;
+    song *aux = songList;
+    for (int i = 0; i < n; ++i) {
+        if (solution[i] == 1) actualSolutionPopularity += aux->popularity;
+        if (bestSolution[i] == 1) bestSolutionPopularity += aux->popularity;
+        aux = aux->next;
+    }
+    if (bestSolutionPopularity >= actualSolutionPopularity) return;
+
+    for (int i = 0; i < n; ++i) {
+        bestSolution[i] = solution[i];
+    }
+
+}
+
+/**
+ *
+ * @param n
+ * @param solution
+ * @param songList
+ */
+void showAlbum(int n, int *solution, song* songList){
+
+    printf("\nMejor propuesta encontrada\nGRANDES ÉXITOS MURCIANOS | 1Pimiento Records\n");
+
+    int totalSeconds = 0;
+    int totalPopularity = 0;
+    song *aux = songList;
+    for (int i = 0; i < n; ++i) {
+        if (solution[i] == 1){
+            totalSeconds += aux->duration;
+            totalPopularity += aux->popularity;
+            printf("%s\tDuración (segundos): %d\t Popularidad: %d\n", aux->id, aux->duration, aux->popularity);
+        }
+        aux = aux->next;
+    }
+
+    printf("\nTiempo Total (segundos): %d\t Popularidad Total: %d\n", totalSeconds, totalPopularity);
 }
 
 /**
