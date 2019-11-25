@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#aecf52f80e31cabfbd0efd403353b43c3"><param name="Name" value="ALBUM_LENGTH"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#af22d3e62d48b00ace9016bf394dbdaa3"><param name="Name" value="ALBUM_SIZE"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#a54bfe40c2bf835ba5bb339bf8df81821"><param name="Name" value="createAlbumRec"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#a54bfe40c2bf835ba5bb339bf8df81821"><param name="Name" value="Exercise2.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#a54bfe40c2bf835ba5bb339bf8df81821"><param name="Name" value="createAlbumRec"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structsong.html#ac6e4b2a3cf932b33832d4e4e4e7cd0de"><param name="Name" value="duration"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html"><param name="Name" value="Exercise1.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#ae88f4fc994aa833fbea91b69da4d6662"><param name="Name" value="getMagicConstant"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html"><param name="Name" value="Exercise1.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#a086acc2bd6a8e4e01f01aaa19e8604e6"><param name="Name" value="isReachable"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html"><param name="Name" value="Exercise1.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#a4455cf909f4f010fd5e482f1110d9889"><param name="Name" value="isSolution"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html"><param name="Name" value="Exercise1.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#ae45726ada4dc56f271fc9f1494c2b80f"><param name="Name" value="magicSquareRec"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html"><param name="Name" value="Exercise1.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#af49435cbc60a8b10c858730b20c8f2f0"><param name="Name" value="mainExercise1"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#a27a9810ad6ec61ee67c8d55ade9eee23"><param name="Name" value="Exercise1.c"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html"><param name="Name" value="Exercise1.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html#ae88f4fc994aa833fbea91b69da4d6662"><param name="Name" value="getMagicConstant"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html"><param name="Name" value="Exercise1.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html#a68bc842dbfcfec28b8fe68cc86eda555"><param name="Name" value="isReachable"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html"><param name="Name" value="Exercise1.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html#a4455cf909f4f010fd5e482f1110d9889"><param name="Name" value="isSolution"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html"><param name="Name" value="Exercise1.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html#a3d04410f886843ba8c829fcd88e0aa3a"><param name="Name" value="magicSquareRec"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html"><param name="Name" value="Exercise1.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html#af49435cbc60a8b10c858730b20c8f2f0"><param name="Name" value="mainExercise1"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html#a27a9810ad6ec61ee67c8d55ade9eee23"><param name="Name" value="Exercise1.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html"><param name="Name" value="Exercise2.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#aecf52f80e31cabfbd0efd403353b43c3"><param name="Name" value="ALBUM_LENGTH"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html"><param name="Name" value="Exercise2.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#af22d3e62d48b00ace9016bf394dbdaa3"><param name="Name" value="ALBUM_SIZE"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html"><param name="Name" value="Exercise2.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#a54bfe40c2bf835ba5bb339bf8df81821"><param name="Name" value="createAlbumRec"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html"><param name="Name" value="Exercise2.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#abe4f984652a5e91d62115a2e9496f5b7"><param name="Name" value="isValid"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html"><param name="Name" value="Exercise2.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#a3fa801bbc5adcac1f02be0daffdf0089"><param name="Name" value="keepBetterSolution"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html"><param name="Name" value="Exercise2.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#abc9594921f34c348c52679d8935ea60d"><param name="Name" value="loadFile"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html"><param name="Name" value="Exercise2.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#a4a6a2aef37e1ca7564913b1b0bdb968d"><param name="Name" value="mainExercise2"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#a096db65df1d7e9e5b3e556fba5eeabaa"><param name="Name" value="Exercise2.c"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html"><param name="Name" value="Exercise2.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#a54bfe40c2bf835ba5bb339bf8df81821"><param name="Name" value="createAlbumRec"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html"><param name="Name" value="Exercise2.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#abe4f984652a5e91d62115a2e9496f5b7"><param name="Name" value="isValid"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html"><param name="Name" value="Exercise2.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#a3fa801bbc5adcac1f02be0daffdf0089"><param name="Name" value="keepBetterSolution"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html"><param name="Name" value="Exercise2.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#abc9594921f34c348c52679d8935ea60d"><param name="Name" value="loadFile"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html"><param name="Name" value="Exercise2.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#a4a6a2aef37e1ca7564913b1b0bdb968d"><param name="Name" value="mainExercise2"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html"><param name="Name" value="Exercise2.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#a096db65df1d7e9e5b3e556fba5eeabaa"><param name="Name" value="showAlbum"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#aff9c9b605930d07cb717cc3bebb2f376"><param name="Name" value="Exercise2.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#ae88f4fc994aa833fbea91b69da4d6662"><param name="Name" value="getMagicConstant"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#ae88f4fc994aa833fbea91b69da4d6662"><param name="Name" value="Exercise1.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html#ae88f4fc994aa833fbea91b69da4d6662"><param name="Name" value="getMagicConstant"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structsong.html#aecb3b0d045ada529257a2fbf8f829599"><param name="Name" value="id"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#a086acc2bd6a8e4e01f01aaa19e8604e6"><param name="Name" value="isReachable"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#a086acc2bd6a8e4e01f01aaa19e8604e6"><param name="Name" value="Exercise1.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html#a68bc842dbfcfec28b8fe68cc86eda555"><param name="Name" value="isReachable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#a4455cf909f4f010fd5e482f1110d9889"><param name="Name" value="isSolution"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#a4455cf909f4f010fd5e482f1110d9889"><param name="Name" value="Exercise1.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html#a4455cf909f4f010fd5e482f1110d9889"><param name="Name" value="isSolution"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#abe4f984652a5e91d62115a2e9496f5b7"><param name="Name" value="isValid"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#abe4f984652a5e91d62115a2e9496f5b7"><param name="Name" value="Exercise2.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#abe4f984652a5e91d62115a2e9496f5b7"><param name="Name" value="isValid"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#a3fa801bbc5adcac1f02be0daffdf0089"><param name="Name" value="keepBetterSolution"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#a3fa801bbc5adcac1f02be0daffdf0089"><param name="Name" value="Exercise2.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#a3fa801bbc5adcac1f02be0daffdf0089"><param name="Name" value="keepBetterSolution"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#abc9594921f34c348c52679d8935ea60d"><param name="Name" value="loadFile"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#abc9594921f34c348c52679d8935ea60d"><param name="Name" value="Exercise2.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#abc9594921f34c348c52679d8935ea60d"><param name="Name" value="loadFile"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#ae45726ada4dc56f271fc9f1494c2b80f"><param name="Name" value="magicSquareRec"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#ae45726ada4dc56f271fc9f1494c2b80f"><param name="Name" value="Exercise1.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html#a3d04410f886843ba8c829fcd88e0aa3a"><param name="Name" value="magicSquareRec"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="main_8c.html"><param name="Name" value="main.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4"><param name="Name" value="main"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="main_8c.html#aba5bd9067aa6f261123165a337c7957d"><param name="Name" value="main.c"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4"><param name="Name" value="main"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#af49435cbc60a8b10c858730b20c8f2f0"><param name="Name" value="mainExercise1"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#af49435cbc60a8b10c858730b20c8f2f0"><param name="Name" value="Exercise1.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html#af49435cbc60a8b10c858730b20c8f2f0"><param name="Name" value="mainExercise1"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#a4a6a2aef37e1ca7564913b1b0bdb968d"><param name="Name" value="mainExercise2"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#a4a6a2aef37e1ca7564913b1b0bdb968d"><param name="Name" value="Exercise2.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#a4a6a2aef37e1ca7564913b1b0bdb968d"><param name="Name" value="mainExercise2"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structsong.html#ae1d452db23803452dac3812aaceee25b"><param name="Name" value="next"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structsong.html#a4ba14e9a9b780e00e30413bd063ade39"><param name="Name" value="popularity"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#a096db65df1d7e9e5b3e556fba5eeabaa"><param name="Name" value="showAlbum"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8c.html#a096db65df1d7e9e5b3e556fba5eeabaa"><param name="Name" value="Exercise2.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#a096db65df1d7e9e5b3e556fba5eeabaa"><param name="Name" value="showAlbum"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="main_8c.html#aba5bd9067aa6f261123165a337c7957d"><param name="Name" value="showMenu"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#a27a9810ad6ec61ee67c8d55ade9eee23"><param name="Name" value="showSolution"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8c.html#a27a9810ad6ec61ee67c8d55ade9eee23"><param name="Name" value="Exercise1.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise1_8h.html#a27a9810ad6ec61ee67c8d55ade9eee23"><param name="Name" value="showSolution"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structsong.html"><param name="Name" value="song"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structsong.html"><param name="Name" value="song"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structsong.html#ac6e4b2a3cf932b33832d4e4e4e7cd0de"><param name="Name" value="duration"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#aff9c9b605930d07cb717cc3bebb2f376"><param name="Name" value="song"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="_exercise2_8h.html#aff9c9b605930d07cb717cc3bebb2f376"><param name="Name" value="Exercise2.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structsong.html"><param name="Name" value="song"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structsong.html#aecb3b0d045ada529257a2fbf8f829599"><param name="Name" value="id"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structsong.html"><param name="Name" value="song"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structsong.html#ae1d452db23803452dac3812aaceee25b"><param name="Name" value="next"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structsong.html#a4ba14e9a9b780e00e30413bd063ade39"><param name="Name" value="song"></OBJECT>
+</UL>
+</BODY>
+</HTML>

@@ -62,7 +62,6 @@ int magicSquareRec(int n, int *solution, int step, int magicConstant){
     solution[step] = 0;
     do{
         solution[step] += 1;
-        //TODO: Aquí se crea un nodo nuevo
         if(isReachable(n, solution, step, magicConstant) == 1){
 
             if(isSolution(n, solution, step, magicConstant) == 1){
