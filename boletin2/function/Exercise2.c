@@ -47,6 +47,13 @@ void mainExercise2(){
 
     free(solution);
     free(bestSolution);
+    aux = songList;
+    while (aux != NULL){
+        free(aux->id);
+        free(aux);
+        aux = aux->next;
+    }
+    free(songList);
 }
 
 /**
@@ -55,7 +62,7 @@ void mainExercise2(){
  * @param solution
  * @param step
  * @param bestSolution
- * @return
+ * @returnqq
  */
 void createAlbumRec(int n, int *solution, int step, int *bestSolution, song* songList){
     if(step == n) return;
@@ -147,12 +154,12 @@ void showAlbum(int n, int *solution, song* songList){
         if (solution[i] == 1){
             totalSeconds += aux->duration;
             totalPopularity += aux->popularity;
-            printf("%s\tDuración (segundos): %d\t Popularidad: %d\n", aux->id, aux->duration, aux->popularity);
+            printf("%s\tDuración (segundos): %d \tPopularidad: %d\n", aux->id, aux->duration, aux->popularity);
         }
         aux = aux->next;
     }
 
-    printf("\nTiempo Total (segundos): %d\t Popularidad Total: %d\n", totalSeconds, totalPopularity);
+    printf("\nTiempo Total (segundos): %d\tPopularidad Total: %d\n", totalSeconds, totalPopularity);
 }
 
 /**

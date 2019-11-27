@@ -9,7 +9,7 @@
 #define ALGORITHMICS_EXERCISE2_H
 #include <stdio.h>
 
-typedef  struct song{
+typedef  struct song {
     char* id;
     int duration;
     int popularity;
