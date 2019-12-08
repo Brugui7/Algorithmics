@@ -27,3 +27,17 @@ void writeFile(int *array, int size, char *outputFileName){
 
     fclose(file);
 }
+
+/**
+ * Copies the unordered array to other so the file has not to be read everytime
+ * @param arraySource
+ * @param size
+ * @param arrayDestination
+ * @return
+ */
+int* copyArray(int *arraySource, int size, int *arrayDestination){
+    for (int i = 0; i < size; ++i) {
+        arrayDestination[i] = arraySource[i];
+    }
+    return arrayDestination;
+}

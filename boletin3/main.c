@@ -7,7 +7,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "Common.h"
 #include "BubbleSort.h"
+#include "SelectionSort.h"
 
 
 
@@ -57,19 +59,27 @@ void showMenu() {
 void doAllSortings(){
     FILE *file = askForFileToLoad();
     char savePath[255] = "";
+    int *arrayCopy;
     printf("Introduzca la ruta a la carpeta donde se almacenarán los ficheros de salida\n>");
     gets(savePath);
     int *array = (int*) malloc(sizeof(int));
     array = loadFile(file, array);
     int size = countNumbers(file);
-    basicBubbleSort(array, size, savePath);
     fclose(file);
+    arrayCopy = (int*) malloc(sizeof(int) * size);
+
+    arrayCopy = copyArray(array, size, arrayCopy);
+    basicBubbleSort(arrayCopy, size, savePath);
+    arrayCopy = copyArray(array, size, arrayCopy);
+    basicSelectionSort(arrayCopy, size, savePath);
+
+
 
 
 }
 
 FILE *askForFileToLoad(){
-    char fileName[100] = "";
+    char fileName[255] = "";
     FILE *file = NULL;
 
     //Asks for the file to load the data
