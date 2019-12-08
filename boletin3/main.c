@@ -11,6 +11,7 @@
 #include "BubbleSort.h"
 #include "SelectionSort.h"
 #include "ShellSort.h"
+#include "QuickSort.h"
 
 
 
@@ -75,6 +76,8 @@ void doAllSortings(){
     basicSelectionSort(arrayCopy, size, savePath);
     arrayCopy = copyArray(array, size, arrayCopy);
     shellSort(arrayCopy, size, savePath);
+    arrayCopy = copyArray(array, size, arrayCopy);
+    quickSort(arrayCopy, size, savePath, 1);
 
 }
 
