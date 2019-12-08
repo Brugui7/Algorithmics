@@ -7,6 +7,6 @@
 #ifndef ALGORITHMICS_BUBBLESORT_H
 #define ALGORITHMICS_BUBBLESORT_H
 
-int *basicBubbleSort(int *array, int size, char *outputFileName);
+void *basicBubbleSort(int *array, int size, char *outputFilePath);
 
 #endif //ALGORITHMICS_BUBBLESORT_H

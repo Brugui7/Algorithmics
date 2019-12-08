@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "BubbleSort.h"
 
 
 
@@ -14,9 +15,9 @@
 void showMenu();
 int *loadFile(FILE *file, int* array);
 int countNumbers(FILE *file);
-FILE *askForFile();
+FILE *askForFileToLoad();
 void doAllSortings();
-void writeFile(int *array, int size, char *outputFileName);
+
 
 /**
  * Shows all the options and calls the appropriate function depending of the chosen option
@@ -54,15 +55,20 @@ void showMenu() {
 
 
 void doAllSortings(){
-    FILE *file = askForFile();
+    FILE *file = askForFileToLoad();
+    char savePath[255] = "";
+    printf("Introduzca la ruta a la carpeta donde se almacenarán los ficheros de salida\n>");
+    gets(savePath);
     int *array = (int*) malloc(sizeof(int));
     array = loadFile(file, array);
     int size = countNumbers(file);
+    basicBubbleSort(array, size, savePath);
     fclose(file);
-    writeFile(array, size, "D:\\CLionWorkspace\\Algorithmics\\boletin3\\data\\Test.txt");
+
+
 }
 
-FILE *askForFile(){
+FILE *askForFileToLoad(){
     char fileName[100] = "";
     FILE *file = NULL;
 
@@ -124,24 +130,7 @@ int countNumbers(FILE *file){
 }
 
 
-/**
- *
- * @param array
- * @param outputFileName
- */
-void writeFile(int *array, int size, char *outputFileName){
 
-    FILE *file = NULL;
-    if ((file = fopen(outputFileName, "w")) == NULL){
-        printf("Error al abrir el fichero en modo escritura");
-    }
-
-    for (int i = 0; i < size; ++i) {
-        fprintf(file, "%d\n", array[i]);
-    }
-
-    fclose(file);
-}
 
 int main() {
     showMenu();
