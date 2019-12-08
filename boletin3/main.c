@@ -1,0 +1,148 @@
+/**
+ * @file
+ * @brief Main menu for the third task
+ * @author Alejandro Brugarolas
+ * @since 2019-12
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+
+void showMenu();
+int *loadFile(FILE *file, int* array);
+int countNumbers(FILE *file);
+FILE *askForFile();
+void doAllSortings();
+void writeFile(int *array, int size, char *outputFileName);
+
+/**
+ * Shows all the options and calls the appropriate function depending of the chosen option
+ */
+void showMenu() {
+
+    int option = 0;
+    while (option != 3) {
+        printf("\n############### MENU BOLETÍN 3 ###############\n"
+               "Indique qué acción desea realizar\n"
+               "\t1. Ejecutar todos los algoritmos.\n"
+               "\t2. TODO.\n"
+               "\t3. Salir.\n");
+        printf("> ");
+
+        scanf("%d", &option);
+        fflush(stdin);
+        switch (option) {
+            case 1:
+                doAllSortings();
+                break;
+            case 2:
+                break;
+            case 3:
+                printf("Saliendo...");
+                break;
+            default:
+                printf("Por favor seleccione una opción válida\n");
+                break;
+        }
+    }
+}
+
+
+
+
+void doAllSortings(){
+    FILE *file = askForFile();
+    int *array = (int*) malloc(sizeof(int));
+    array = loadFile(file, array);
+    int size = countNumbers(file);
+    fclose(file);
+    writeFile(array, size, "D:\\CLionWorkspace\\Algorithmics\\boletin3\\data\\Test.txt");
+}
+
+FILE *askForFile(){
+    char fileName[100] = "";
+    FILE *file = NULL;
+
+    //Asks for the file to load the data
+    while (file == NULL) {
+        printf("Introduzca la ruta al archivo de datos\n>");
+        gets(fileName);
+        fflush(stdin);
+        file = fopen(fileName, "r");
+    }
+
+    return file;
+}
+
+
+/**
+ * Loads the file and returns a list of songs
+ * @param songList
+ * @param file
+ * @return songs list
+ */
+int *loadFile(FILE *file, int* array){
+    char *buffer = (char *) malloc(sizeof(char) * 255);
+    size_t bufferSize = 255;
+
+    int i = 0;
+    while(fgets(buffer, bufferSize, file) != NULL){
+        if (i != 0){
+            array = (int*) realloc(array, sizeof(int) * (i + 1));
+        }
+
+        array[i] = atoi(buffer);
+        i++;
+
+    }
+    free(buffer);
+
+    return array;
+}
+
+/**
+ * Counts all the numbers on a file
+ * Other solution could be storing it in a global variable at the loadFile method, but I don't like globals
+ * @param file
+ * @return
+ */
+int countNumbers(FILE *file){
+    char *buffer = (char *) malloc(sizeof(char) * 255);
+    size_t bufferSize = 255;
+    int numbers = 0;
+    //Puts the pointer on the first line of the file
+    rewind(file);
+    while(fgets(buffer, bufferSize, file) != NULL){
+        numbers++;
+    }
+    free(buffer);
+
+    return numbers;
+}
+
+
+/**
+ *
+ * @param array
+ * @param outputFileName
+ */
+void writeFile(int *array, int size, char *outputFileName){
+
+    FILE *file = NULL;
+    if ((file = fopen(outputFileName, "w")) == NULL){
+        printf("Error al abrir el fichero en modo escritura");
+    }
+
+    for (int i = 0; i < size; ++i) {
+        fprintf(file, "%d\n", array[i]);
+    }
+
+    fclose(file);
+}
+
+int main() {
+    showMenu();
+}

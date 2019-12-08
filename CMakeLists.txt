@@ -3,10 +3,8 @@ project(Algorithmics C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(boletin2/model)
+include_directories(boletin3/model)
 
 add_executable(Algorithmics
-    boletin2/main.c
-        boletin2/model/Exercise1.h
-        boletin2/function/Exercise1.c
-        boletin2/function/Exercise2.c boletin2/model/Exercise2.h)
+    boletin3/main.c
+        boletin3/function/BubbleSort.c boletin3/model/BubbleSort.h)
