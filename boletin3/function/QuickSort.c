@@ -7,6 +7,7 @@
 #include "QuickSort.h"
 #include <Common.h>
 #include <stdio.h>
+#include <sys/time.h>
 
 /**
  *
@@ -15,13 +16,38 @@
  * @param outputFilePath
  * @param pivotOption int 1 | 2 | 3
  */
-void quickSort(int *array, int size, char *outputFilePath, int pivotOption) {
+void mainQuickSort(int *array, int size, char *outputFilePath, int pivotOption) {
+    //For time measuring
+    struct timeval start, end;
+    double timeInvested;
 
-    quickSortRec(array, 0, size - 1, pivotOption);
+    //For measuring
+    int swaps = 0;
+    int comparations = 0;
+
+    gettimeofday(&start, NULL);
+    quickSortRec(array, 0, size - 1, pivotOption, &comparations, &swaps);
+    gettimeofday(&end, NULL);
+    timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
+                    end.tv_usec - start.tv_usec) / 1.e6;
 
     char aux[255];
     sprintf(aux, "%s\\QuickSort%d.txt", outputFilePath, size);
     writeFile(array, size, aux);
+
+    printf("\n-------------------- \nQUICK SORT");
+
+    if (pivotOption == 1){
+        printf(" | Pivote medio ");
+    } else {
+        printf(" | %s ", pivotOption == 2 ? "Pivote aleatorio" : "Pivote mediana");
+    }
+
+    printf(
+            "\n--------------------\n"
+            "Tiempo Invertido: %f\tComparaciones: %d\tIntercambios: %d\n",
+            timeInvested, comparations, swaps
+    );
 }
 
 /**
@@ -39,30 +65,33 @@ void swap(int *array, int i, int j) {
 }
 
 /**
- *
+ * The algorithm itself
  * @param array
  * @param ini
  * @param fin
  * @param pivotOption
+ * @param comparations
+ * @param swaps
  */
-void quickSortRec(int *array, int ini, int fin, int pivotOption) {
+void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparations, int *swaps) {
 
     int pivot;
     int i, j;
 
-    // Caso vector con 1 solo número --> No hacer nada
+    //Array with only one element
     if (ini >= fin) return;
 
-    // Caso vector con 2 números --> Comprobar si es necesario ordenarlos
+    //If the array has two elements check if they are in order and swaps them if not
     if (ini + 1 == fin) {
-        if (array[ini] > array[fin])  // No están ordenados los dos números, intercambiar
+        *comparations += 1;
+        if (array[ini] > array[fin]){
+            *swaps += 1;
             swap(array, ini, fin);
+        }
+
         return;
     }
 
-    // Resto de casos --> vector con 3 números o más
-
-    // Pivote --> La posición de mitad del vector
     int pivotPosition;
     switch (pivotOption){
         case 1:
@@ -78,28 +107,36 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption) {
             return;
     }
 
-    // Intercambiar pivot por el último elemento
+    // Swaps the pivot with the last element
     swap(array, pivotPosition, fin);
+    *swaps += 1;
+
     pivot = array[fin];
 
-    // empezamos la particion
+    // starts the partition
     for (i = ini, j = fin - 1;;) {
-        while ((i <= fin - 1) && (array[i] < pivot)) i++;
-        while ((j >= ini) && (pivot < array[j])) j--;
 
-        if (i < j) {  // Todavía no se han intercambiado los índices, intercambiar números
+        while ((i <= fin - 1) && (array[i] < pivot)){
+            i++;
+        }
+        while ((j >= ini) && (pivot < array[j])){
+            j--;
+        }
+
+        if (i < j) {  // Checks if the indexes passed each other
             swap(array, i, j);
+            *swaps += 1;
             i++;
             j--;
-        } else  // Se han intercambiando los índices, fin de la particion
+        } else  // No swaps
             break;
     }
 
     //colocación del pivot en su sitio
     swap(array, i, fin);
     //termina particion; //llamadas recursivas
-    quickSortRec(array, ini, i - 1, pivotOption);  // Vector de la izquierda del pivot
-    quickSortRec(array, i + 1, fin, pivotOption);  // Vector de la derecha del pivot
+    quickSortRec(array, ini, i - 1, pivotOption, comparations, swaps);
+    quickSortRec(array, i + 1, fin, pivotOption, comparations, swaps);
 }
 
 

@@ -71,13 +71,13 @@ void doAllSortings(){
     arrayCopy = (int*) malloc(sizeof(int) * size);
 
     arrayCopy = copyArray(array, size, arrayCopy);
-    basicBubbleSort(arrayCopy, size, savePath);
+    mainBubbleSort(arrayCopy, size, savePath);
     arrayCopy = copyArray(array, size, arrayCopy);
-    basicSelectionSort(arrayCopy, size, savePath);
+    mainSelectionSort(arrayCopy, size, savePath);
     arrayCopy = copyArray(array, size, arrayCopy);
-    shellSort(arrayCopy, size, savePath);
+    mainShellSort(arrayCopy, size, savePath);
     arrayCopy = copyArray(array, size, arrayCopy);
-    quickSort(arrayCopy, size, savePath, 1);
+    mainQuickSort(arrayCopy, size, savePath, 1);
 
 }
 
