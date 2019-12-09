@@ -9,7 +9,7 @@
 #define ALGORITHMICS_SHELLSORT_H
 
 void mainShellSort(int *array, int size, char *outputFilePath);
-void shellSort(int *array, int size, int *comparations, int *swaps);
+void shellSort(int *array, int size, int *comparisons, int *swaps);
 int calcIncrementSize(int size);
 int calcNextIncrement(int size, int interval);
 

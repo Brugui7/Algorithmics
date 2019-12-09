@@ -23,10 +23,10 @@ void mainQuickSort(int *array, int size, char *outputFilePath, int pivotOption) 
 
     //For measuring
     int swaps = 0;
-    int comparations = 0;
+    int comparisons = 0;
 
     gettimeofday(&start, NULL);
-    quickSortRec(array, 0, size - 1, pivotOption, &comparations, &swaps);
+    quickSortRec(array, 0, size - 1, pivotOption, &comparisons, &swaps);
     gettimeofday(&end, NULL);
     timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
                     end.tv_usec - start.tv_usec) / 1.e6;
@@ -45,8 +45,8 @@ void mainQuickSort(int *array, int size, char *outputFilePath, int pivotOption) 
 
     printf(
             "\n--------------------\n"
-            "Tiempo Invertido: %f\tComparaciones: %d\tIntercambios: %d\n",
-            timeInvested, comparations, swaps
+            "Tiempo Invertido: %f\nComparaciones: %d\nIntercambios: %d\n",
+            timeInvested, comparisons, swaps
     );
 }
 
@@ -70,10 +70,10 @@ void swap(int *array, int i, int j) {
  * @param ini
  * @param fin
  * @param pivotOption
- * @param comparations
+ * @param comparisons
  * @param swaps
  */
-void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparations, int *swaps) {
+void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparisons, int *swaps) {
 
     int pivot;
     int i, j;
@@ -83,7 +83,7 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparatio
 
     //If the array has two elements check if they are in order and swaps them if not
     if (ini + 1 == fin) {
-        *comparations += 1;
+        *comparisons += 1;
         if (array[ini] > array[fin]){
             *swaps += 1;
             swap(array, ini, fin);
@@ -135,8 +135,8 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparatio
     //colocación del pivot en su sitio
     swap(array, i, fin);
     //termina particion; //llamadas recursivas
-    quickSortRec(array, ini, i - 1, pivotOption, comparations, swaps);
-    quickSortRec(array, i + 1, fin, pivotOption, comparations, swaps);
+    quickSortRec(array, ini, i - 1, pivotOption, comparisons, swaps);
+    quickSortRec(array, i + 1, fin, pivotOption, comparisons, swaps);
 }
 
 

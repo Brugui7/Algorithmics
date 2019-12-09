@@ -24,10 +24,10 @@ void mainShellSort(int *array, int size, char *outputFilePath) {
 
     //For measuring
     int swaps = 0;
-    int comparations = 0;
+    int comparisons = 0;
 
     gettimeofday(&start, NULL);
-    shellSort(array, size, &comparations, &swaps);
+    shellSort(array, size, &comparisons, &swaps);
     gettimeofday(&end, NULL);
     timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
                     end.tv_usec - start.tv_usec) / 1.e6;
@@ -38,8 +38,8 @@ void mainShellSort(int *array, int size, char *outputFilePath) {
 
     printf(
             "\n-------------------- \nSHELL SORT\n--------------------\n"
-            "Tiempo Invertido: %f\tComparaciones: %d\tIntercambios: %d\n",
-            timeInvested, comparations, swaps
+            "Tiempo Invertido: %f\nComparaciones: %d\nIntercambios: %d\n",
+            timeInvested, comparisons, swaps
     );
 }
 
@@ -47,10 +47,10 @@ void mainShellSort(int *array, int size, char *outputFilePath) {
  * ShellSort implementations using the knuth method
  * @param array
  * @param size
- * @param comparations
+ * @param comparisons
  * @param swaps
  */
-void shellSort(int *array, int size, int *comparations, int *swaps) {
+void shellSort(int *array, int size, int *comparisons, int *swaps) {
 
     int i, j, interval, temp;
     interval = calcIncrementSize(size);
