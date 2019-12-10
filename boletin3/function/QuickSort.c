@@ -94,9 +94,9 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparison
 
     //If the array has two elements check if they are in order and swaps them if not
     if (ini + 1 == fin) {
-        *comparisons += 1;
+        (*comparisons)++;
         if (array[ini] > array[fin]){
-            *swaps += 1;
+            (*swaps)++;
             swap(array, ini, fin);
         }
 
@@ -112,7 +112,7 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparison
             pivotPosition = getRandAsPivot(ini, fin);
             break;
         case 3:
-            pivotPosition = getMedianAsPivot(array, ini, fin, *&comparisons);
+            pivotPosition = getMedianAsPivot(array, ini, fin, comparisons);
             break;
         default:
             return;
@@ -120,7 +120,7 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparison
 
     // Swaps the pivot with the last element
     swap(array, pivotPosition, fin);
-    *swaps += 1;
+    (*swaps)++;
 
     pivot = array[fin];
 
@@ -128,7 +128,7 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparison
     for (i = ini, j = fin - 1;;) {
 
 
-        *comparisons += 1;
+        (*comparisons)++;
         while ((i <= fin - 1)){
             *comparisons += 2; // Counts the two next comparisons
             if (array[i] < pivot){
@@ -139,7 +139,7 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparison
             }
         }
 
-        *comparisons += 1;
+        (*comparisons)++;
         while (j >= ini){
             *comparisons += 2; // Counts the two next comparisons
             if(pivot < array[j]){
@@ -150,7 +150,7 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparison
             }
         }
 
-        *comparisons += 1;
+        (*comparisons)++;
         if (i < j) {  // Checks if the indexes passed each other
             swap(array, i, j);
             *swaps += 1;
@@ -165,8 +165,8 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparison
     *swaps += 1;
     swap(array, i, fin);
     //termina particion; //llamadas recursivas
-    quickSortRec(array, ini, i - 1, pivotOption, *&comparisons, *&swaps);
-    quickSortRec(array, i + 1, fin, pivotOption, *&comparisons, *&swaps);
+    quickSortRec(array, ini, i - 1, pivotOption, comparisons, swaps);
+    quickSortRec(array, i + 1, fin, pivotOption, comparisons, swaps);
 }
 
 /**
@@ -190,32 +190,34 @@ int getRandAsPivot(int startPosition, int endPosition){
 }
 
 /**
+ *
  * @param array
  * @param startPosition
  * @param endPosition
+ * @param comparisons
  * @return
  */
-int getMedianAsPivot(int *array, int startPosition, int endPosition, int *comparisons){
+int getMedianAsPivot(const int *array, int startPosition, int endPosition, int *comparisons){
     //For code reuse
     int middlePosition = getMidAsPivot(startPosition, endPosition);
 
-    *comparisons += 1;
+    (*comparisons)++;
     if (array[startPosition] >= array[endPosition]){
-        *comparisons += 1;
+        (*comparisons)++;
         if (array[startPosition] <= array[middlePosition]){
             return startPosition;
         } else if(array[endPosition] <= array[middlePosition]){
-            *comparisons += 1;
+            (*comparisons)++;
             return middlePosition;
         }
-        *comparisons += 1;
+        (*comparisons)++;
         return endPosition;
     } else {
-        *comparisons += 1;
+        (*comparisons)++;
         if (array[startPosition] >= array[middlePosition]){
             return startPosition;
         } else if (array[endPosition] >= array[middlePosition]){
-            *comparisons += 1;
+            (*comparisons)++;
             return middlePosition;
         }
         return endPosition;
