@@ -95,7 +95,7 @@ void shellSort(int *array, int size, int *comparisons, int *swaps) {
  */
 int calcIncrementSize(int size) {
     int increment = 1;
-    int limit = (size - 1) / 9;
+    int limit = (size - 1) / 3;
     for (int i = 0; i < limit; ++i) {
         increment = increment * 3 + 1;
     }
