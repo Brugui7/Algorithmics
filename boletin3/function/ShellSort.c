@@ -61,7 +61,6 @@ void shellSort(int *array, int size, int *comparisons, int *swaps) {
 
     int i, j, interval, temp;
     interval = calcIncrementSize(size);
-    printf("Interval %d", interval);
     while (interval > 0) {
         for (i = interval; i < size; i++) {
             j = i;
@@ -69,13 +68,14 @@ void shellSort(int *array, int size, int *comparisons, int *swaps) {
 
             *comparisons += 1;
             while ((j >= interval)) {
-                *comparisons += 1;
+                *comparisons += 2;
                 if((array[j - interval] > temp)){
                     array[j] = array[j - interval];
                     j = j - interval;
 
                     *swaps += 1;
                 } else {
+                    *comparisons -= 1;
                     //Overkill but a possible solution to count the comparisons without changing the "process" of the while
                     break;
                 }

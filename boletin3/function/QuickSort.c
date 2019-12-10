@@ -112,7 +112,7 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparison
             pivotPosition = getRandAsPivot(ini, fin);
             break;
         case 3:
-            //TODO
+            pivotPosition = getMedianAsPivot(array, ini, fin, *&comparisons);
             break;
         default:
             return;
@@ -127,27 +127,46 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparison
     // starts the partition
     for (i = ini, j = fin - 1;;) {
 
-        while ((i <= fin - 1) && (array[i] < pivot)){
-            i++;
-        }
-        while ((j >= ini) && (pivot < array[j])){
-            j--;
+
+        *comparisons += 1;
+        while ((i <= fin - 1)){
+            *comparisons += 2; // Counts the two next comparisons
+            if (array[i] < pivot){
+                i++;
+            } else {
+                *comparisons -= 1; // Te while will not be evaluated
+                break;
+            }
         }
 
+        *comparisons += 1;
+        while (j >= ini){
+            *comparisons += 2; // Counts the two next comparisons
+            if(pivot < array[j]){
+                j--;
+            } else {
+                *comparisons -= 1; // Te while will not be evaluated
+                break;
+            }
+        }
+
+        *comparisons += 1;
         if (i < j) {  // Checks if the indexes passed each other
             swap(array, i, j);
             *swaps += 1;
             i++;
             j--;
-        } else  // No swaps
+        } else {  // No swaps
             break;
+        }
     }
 
     //colocación del pivot en su sitio
+    *swaps += 1;
     swap(array, i, fin);
     //termina particion; //llamadas recursivas
-    quickSortRec(array, ini, i - 1, pivotOption, comparisons, swaps);
-    quickSortRec(array, i + 1, fin, pivotOption, comparisons, swaps);
+    quickSortRec(array, ini, i - 1, pivotOption, *&comparisons, *&swaps);
+    quickSortRec(array, i + 1, fin, pivotOption, *&comparisons, *&swaps);
 }
 
 /**
@@ -168,4 +187,37 @@ int getMidAsPivot(int startPosition, int endPosition){
  */
 int getRandAsPivot(int startPosition, int endPosition){
     return (rand() % (endPosition - startPosition + 1)) + startPosition;
+}
+
+/**
+ * @param array
+ * @param startPosition
+ * @param endPosition
+ * @return
+ */
+int getMedianAsPivot(int *array, int startPosition, int endPosition, int *comparisons){
+    //For code reuse
+    int middlePosition = getMidAsPivot(startPosition, endPosition);
+
+    *comparisons += 1;
+    if (array[startPosition] >= array[endPosition]){
+        *comparisons += 1;
+        if (array[startPosition] <= array[middlePosition]){
+            return startPosition;
+        } else if(array[endPosition] <= array[middlePosition]){
+            *comparisons += 1;
+            return middlePosition;
+        }
+        *comparisons += 1;
+        return endPosition;
+    } else {
+        *comparisons += 1;
+        if (array[startPosition] >= array[middlePosition]){
+            return startPosition;
+        } else if (array[endPosition] >= array[middlePosition]){
+            *comparisons += 1;
+            return middlePosition;
+        }
+        return endPosition;
+    }
 }
