@@ -73,8 +73,7 @@ void doAllSortings(){
     arrayCopy = copyArray(array, size, arrayCopy);
     mainBubbleSort(arrayCopy, size, savePath);
     mainSelectionSort(array, size, savePath);
-    arrayCopy = copyArray(array, size, arrayCopy);
-    mainShellSort(arrayCopy, size, savePath);
+    mainShellSort(array, size, savePath);
     arrayCopy = copyArray(array, size, arrayCopy);
     mainQuickSort(arrayCopy, size, savePath, 1);
 

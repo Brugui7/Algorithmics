@@ -8,6 +8,7 @@
 
 #include <Common.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/time.h>
 #include <ShellSort.h>
 
@@ -26,21 +27,27 @@ void mainShellSort(int *array, int size, char *outputFilePath) {
     int swaps = 0;
     int comparisons = 0;
 
+    int *arrayCopy = (int*) malloc(sizeof(int) * size);
+    arrayCopy = copyArray(array, size, arrayCopy);
+
     gettimeofday(&start, NULL);
-    shellSort(array, size, &comparisons, &swaps);
+    shellSort(arrayCopy, size, &comparisons, &swaps);
     gettimeofday(&end, NULL);
     timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
                     end.tv_usec - start.tv_usec) / 1.e6;
 
     char aux[255];
     sprintf(aux, "%s\\ShellSort%d.txt", outputFilePath, size);
-    writeFile(array, size, aux);
+    writeFile(arrayCopy, size, aux);
 
     printf(
             "\n-------------------- \nSHELL SORT\n--------------------\n"
             "Tiempo Invertido: %f\nComparaciones: %d\nIntercambios: %d\n",
             timeInvested, comparisons, swaps
     );
+
+
+    free(arrayCopy);
 }
 
 /**
@@ -54,16 +61,25 @@ void shellSort(int *array, int size, int *comparisons, int *swaps) {
 
     int i, j, interval, temp;
     interval = calcIncrementSize(size);
+    printf("Interval %d", interval);
     while (interval > 0) {
         for (i = interval; i < size; i++) {
             j = i;
             temp = array[i];
 
-            while ((j >= interval) && (array[j - interval] > temp)) {
-                array[j] = array[j - interval];
-                j = j - interval;
+            *comparisons += 1;
+            while ((j >= interval)) {
+                *comparisons += 1;
+                if((array[j - interval] > temp)){
+                    array[j] = array[j - interval];
+                    j = j - interval;
 
-                *swaps += 1;
+                    *swaps += 1;
+                } else {
+                    //Overkill but a possible solution to count the comparisons without changing the "process" of the while
+                    break;
+                }
+
             }
             array[j] = temp;
         }
@@ -79,7 +95,8 @@ void shellSort(int *array, int size, int *comparisons, int *swaps) {
  */
 int calcIncrementSize(int size) {
     int increment = 1;
-    for (int i = 0; i < size; ++i) {
+    int limit = (size - 1) / 9;
+    for (int i = 0; i < limit; ++i) {
         increment = increment * 3 + 1;
     }
     return increment;
