@@ -57,7 +57,9 @@ void showMenu() {
 
 
 
-
+/**
+ * Calls all the algorithms' functions to sort a given file
+ */
 void doAllSortings(){
     FILE *file = askForFileToLoad();
     char savePath[255] = "";
@@ -74,8 +76,8 @@ void doAllSortings(){
     mainBubbleSort(arrayCopy, size, savePath);
     mainSelectionSort(array, size, savePath);
     mainShellSort(array, size, savePath);
-    arrayCopy = copyArray(array, size, arrayCopy);
     mainQuickSort(arrayCopy, size, savePath, 1);
+    mainQuickSort(arrayCopy, size, savePath, 2);
 
 }
 

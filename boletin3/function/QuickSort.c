@@ -8,6 +8,7 @@
 #include <Common.h>
 #include <stdio.h>
 #include <sys/time.h>
+#include <stdlib.h>
 
 /**
  *
@@ -25,15 +26,23 @@ void mainQuickSort(int *array, int size, char *outputFilePath, int pivotOption) 
     int swaps = 0;
     int comparisons = 0;
 
+    int *arrayCopy = (int*) malloc(sizeof(int) * size);
+    arrayCopy = copyArray(array, size, arrayCopy);
+
     gettimeofday(&start, NULL);
-    quickSortRec(array, 0, size - 1, pivotOption, &comparisons, &swaps);
+    quickSortRec(arrayCopy, 0, size - 1, pivotOption, &comparisons, &swaps);
     gettimeofday(&end, NULL);
     timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
                     end.tv_usec - start.tv_usec) / 1.e6;
 
     char aux[255];
-    sprintf(aux, "%s\\QuickSort%d.txt", outputFilePath, size);
-    writeFile(array, size, aux);
+    if (pivotOption == 1){
+        sprintf(aux, "%s\\QuickSortMidPivot%d.txt", outputFilePath, size);
+    } else {
+        sprintf(aux, "%s\\QuickSort%sPivot%d.txt", outputFilePath, pivotOption == 2 ? "Rand" : "Median", size);
+    }
+
+    writeFile(arrayCopy, size, aux);
 
     printf("\n-------------------- \nQUICK SORT");
 
@@ -48,6 +57,8 @@ void mainQuickSort(int *array, int size, char *outputFilePath, int pivotOption) 
             "Tiempo Invertido: %f\nComparaciones: %d\nIntercambios: %d\n",
             timeInvested, comparisons, swaps
     );
+
+    free(arrayCopy);
 }
 
 /**
@@ -98,7 +109,7 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparison
             pivotPosition = getMidAsPivot(ini, fin);
             break;
         case 2:
-            //TODO
+            pivotPosition = getRandAsPivot(ini, fin);
             break;
         case 3:
             //TODO
@@ -139,7 +150,22 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparison
     quickSortRec(array, i + 1, fin, pivotOption, comparisons, swaps);
 }
 
-
+/**
+ * Returns the position in the middle of the array
+ * @param startPosition
+ * @param endPosition
+ * @return
+ */
 int getMidAsPivot(int startPosition, int endPosition){
     return (startPosition + endPosition) / 2;
+}
+
+/**
+ * Returns a Random int number between start and end
+ * @param startPosition
+ * @param endPosition
+ * @return
+ */
+int getRandAsPivot(int startPosition, int endPosition){
+    return (rand() % (endPosition - startPosition + 1)) + startPosition;
 }
