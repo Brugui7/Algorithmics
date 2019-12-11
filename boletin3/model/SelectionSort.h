@@ -13,5 +13,6 @@
 void basicSelectionSort(int *array, int size, double *comparisons, double *swaps);
 void mainSelectionSort(int *array, int size, char *outputFilePath);
 void improvedSelectionSort(int *array, int size, double *comparisons, double *swaps);
+void readFileAndExecuteSelectionSort();
 
 #endif //ALGORITHMICS_SELECTIONSORT_H

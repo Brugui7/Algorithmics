@@ -9,5 +9,6 @@
 
 void basicBubbleSort(int *array, int size, double *comparisons, double *swaps);
 void mainBubbleSort(int *array, int size, char *outputFilePath);
+void readFileAndExecuteBubbleSort();
 
 #endif //ALGORITHMICS_BUBBLESORT_H

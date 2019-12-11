@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../model/Common.h"
 
 
@@ -102,4 +103,17 @@ int countElements(FILE *file){
     free(buffer);
 
     return numbers;
+}
+
+/**
+ * Asks for a path to the folder to store the output data
+ * @return string
+ */
+char *askForSavePath(){
+    char *savePath = (char*) malloc(sizeof(char) * 255);
+    printf("Introduzca la ruta a la carpeta donde se almacenarán los ficheros de salida\n>");
+    gets(savePath);
+    fflush(stdin);
+    realloc(savePath, sizeof(char) * (strlen(savePath) + 1));
+    return savePath;
 }

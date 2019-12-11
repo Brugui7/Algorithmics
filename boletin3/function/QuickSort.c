@@ -10,6 +10,25 @@
 #include <sys/time.h>
 #include <stdlib.h>
 
+
+/**
+ * Reads the file and calls the main method
+ */
+void readFileAndExecuteQuickSort(){
+    FILE *file = askForFileToLoad();
+    char* savePath = askForSavePath();
+    int *array = (int*) malloc(sizeof(int));
+    array = loadFile(file, array);
+    int size = countElements(file);
+    fclose(file);
+
+    mainQuickSort(array, size, savePath, 1);
+    mainQuickSort(array, size, savePath, 2);
+    mainQuickSort(array, size, savePath, 3);
+    free(array);
+    free(savePath);
+}
+
 /**
  *
  * @param array

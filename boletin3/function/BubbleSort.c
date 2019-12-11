@@ -7,8 +7,26 @@
 
 #include "Common.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/time.h>
 #include "BubbleSort.h"
+
+/**
+ * Reads the file and calls the main method
+ */
+void readFileAndExecuteBubbleSort(){
+    FILE *file = askForFileToLoad();
+    char* savePath = askForSavePath();
+    int *array = (int*) malloc(sizeof(int));
+    array = loadFile(file, array);
+    int size = countElements(file);
+    fclose(file);
+
+    mainBubbleSort(array, size, savePath);
+
+    free(array);
+    free(savePath);
+}
 
 /**
  *
@@ -25,21 +43,26 @@ void mainBubbleSort(int *array, int size, char *outputFilePath) {
     double swaps = 0;
     double comparisons = 0;
 
+    int *arrayCopy = (int*) malloc(sizeof(int) * size);
+    arrayCopy = copyArray(array, size, arrayCopy);
+
     gettimeofday(&start, NULL);
-    basicBubbleSort(array, size, &comparisons, &swaps);
+    basicBubbleSort(arrayCopy, size, &comparisons, &swaps);
     gettimeofday(&end, NULL);
     timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
                     end.tv_usec - start.tv_usec) / 1.e6;
 
     char aux[255];
     sprintf(aux, "%s\\BubbleSortBasic%d.txt", outputFilePath, size);
-    writeFile(array, size, aux);
+    writeFile(arrayCopy, size, aux);
 
     printf(
             "\n-------------------- \nBUBBLE SORT\n--------------------\n"
             "Tiempo Invertido: %f\nComparaciones: %f\nIntercambios: %f\n",
             timeInvested, comparisons, swaps
     );
+
+    free(arrayCopy);
 }
 
 /**

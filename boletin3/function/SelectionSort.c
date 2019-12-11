@@ -12,6 +12,23 @@
 #include <SelectionSort.h>
 
 /**
+ * Reads the file and calls the main method
+ */
+void readFileAndExecuteSelectionSort(){
+    FILE *file = askForFileToLoad();
+    char* savePath = askForSavePath();
+    int *array = (int*) malloc(sizeof(int));
+    array = loadFile(file, array);
+    int size = countElements(file);
+    fclose(file);
+
+    mainSelectionSort(array, size, savePath);
+
+    free(array);
+    free(savePath);
+}
+
+/**
  *
  * @param array
  * @param size

@@ -14,5 +14,6 @@ int getMidAsPivot(int startPosition, int endPosition);
 int getRandAsPivot(int startPosition, int endPosition);
 int getMedianAsPivot(const int *array, int startPosition, int endPosition, double *comparisons);
 void swap(int *array, int i, int j);
+void readFileAndExecuteQuickSort();
 
 #endif //ALGORITHMICS_QUICKSORT_H
