@@ -61,6 +61,7 @@ void shellSort(int *array, int size, int *comparisons, int *swaps) {
 
     int i, j, interval, temp;
     interval = calcIncrementSize(size);
+    printf("Primer intervalo: %d\n", interval);
     while (interval > 0) {
         for (i = interval; i < size; i++) {
             j = i;
@@ -83,7 +84,10 @@ void shellSort(int *array, int size, int *comparisons, int *swaps) {
             }
             array[j] = temp;
         }
-        interval = interval / 3;
+
+        //returns interval /2 or interval/3 depending of the data size
+        //Because the knuth formula is better for mid-sized data
+        interval = size > 50000 ?  interval / 2 : interval / 3;
     }
 }
 
@@ -94,12 +98,13 @@ void shellSort(int *array, int size, int *comparisons, int *swaps) {
  * @return
  */
 int calcIncrementSize(int size) {
+    if (size > 2) return size / 2;
+
     int increment = 1;
     int limit = (size - 1) / 3;
     for (int i = 0; i < limit; ++i) {
         increment = increment * 3 + 1;
     }
     return increment;
+
 }
-
-
