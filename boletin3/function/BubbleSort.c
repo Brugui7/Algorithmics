@@ -43,6 +43,8 @@ void mainBubbleSort(int *array, int size, char *outputFilePath) {
     double swaps = 0;
     double comparisons = 0;
 
+    //########## BASIC ##########
+
     int *arrayCopy = (int*) malloc(sizeof(int) * size);
     arrayCopy = copyArray(array, size, arrayCopy);
 
@@ -58,6 +60,28 @@ void mainBubbleSort(int *array, int size, char *outputFilePath) {
 
     printf(
             "\n-------------------- \nBUBBLE SORT\n--------------------\n"
+            "Tiempo Invertido: %f\nComparaciones: %f\nIntercambios: %f\n",
+            timeInvested, comparisons, swaps
+    );
+
+    //########## IMPROVED ##########
+
+    arrayCopy = copyArray(array, size, arrayCopy);
+    swaps = 0;
+    comparisons = 0;
+
+    gettimeofday(&start, NULL);
+    improvedBubbleSort(arrayCopy, size, &comparisons, &swaps);
+    gettimeofday(&end, NULL);
+    timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
+                    end.tv_usec - start.tv_usec) / 1.e6;
+
+
+    sprintf(aux, "%s\\BubbleSortImproved%d.txt", outputFilePath, size);
+    writeFile(arrayCopy, size, aux);
+
+    printf(
+            "\n-------------------- \nBUBBLE SORT MEJORADO\n--------------------\n"
             "Tiempo Invertido: %f\nComparaciones: %f\nIntercambios: %f\n",
             timeInvested, comparisons, swaps
     );
@@ -81,9 +105,40 @@ void basicBubbleSort(int *array, int size, double *comparisons, double *swaps) {
                 interc = array[j];
                 array[j] = array[i];
                 array[i] = interc;
-                *swaps += 1;
+                (*swaps)++;
             }
         }
+    }
+
+}
+
+
+/**
+ * Adds a new variable to count the swaps and if after a full pivot iteration there are no swaps,
+ * that's mean that the array is ordered
+ * @param array
+ * @param size
+ * @param comparisons
+ * @param swaps
+ */
+void improvedBubbleSort(int *array, int size, double *comparisons, double *swaps) {
+    int i, j, interc;
+    int swapsAux;
+    for (i = 0; i < size - 1; i++) {
+        swapsAux = 0;
+        for (j = i + 1; j < size; j++) {
+            *comparisons += 1;
+            if (array[j] < array[i]) {
+                interc = array[j];
+                array[j] = array[i];
+                array[i] = interc;
+                (*swaps)++;
+                swapsAux++;
+            }
+        }
+
+        //This comparison won't be counted
+        if (swapsAux == 0) return;
     }
 
 }

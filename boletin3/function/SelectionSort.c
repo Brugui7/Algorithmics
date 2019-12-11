@@ -46,6 +46,8 @@ void mainSelectionSort(int *array, int size, char *outputFilePath){
     int *arrayCopy = (int*) malloc(sizeof(int) * size);
     arrayCopy = copyArray(array, size, arrayCopy);
 
+    //########## BASIC ##########
+
     gettimeofday(&start, NULL);
     basicSelectionSort(arrayCopy, size, &comparisons, &swaps);
     gettimeofday(&end, NULL);
@@ -57,12 +59,13 @@ void mainSelectionSort(int *array, int size, char *outputFilePath){
     writeFile(arrayCopy, size, aux);
 
 
-
     printf(
             "\n-------------------- \nSELECTION SORT\n--------------------\n"
             "Tiempo Invertido: %f\nComparaciones: %f\nIntercambios: %f\n",
             timeInvested, comparisons, swaps
     );
+
+    //########## IMPROVED ##########
 
     comparisons = 0;
     swaps = 0;
