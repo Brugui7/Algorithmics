@@ -17,9 +17,6 @@
 
 
 void showMenu();
-int *loadFile(FILE *file, int* array);
-int countNumbers(FILE *file);
-FILE *askForFileToLoad();
 void doAllSortings();
 
 
@@ -68,7 +65,7 @@ void doAllSortings(){
     gets(savePath);
     int *array = (int*) malloc(sizeof(int));
     array = loadFile(file, array);
-    int size = countNumbers(file);
+    int size = countElements(file);
     fclose(file);
     arrayCopy = (int*) malloc(sizeof(int) * size);
 
@@ -81,68 +78,6 @@ void doAllSortings(){
     mainQuickSort(array, size, savePath, 3);
 
 }
-
-FILE *askForFileToLoad(){
-    char fileName[255] = "";
-    FILE *file = NULL;
-
-    //Asks for the file to load the data
-    while (file == NULL) {
-        printf("Introduzca la ruta al archivo de datos\n>");
-        gets(fileName);
-        fflush(stdin);
-        file = fopen(fileName, "r");
-    }
-
-    return file;
-}
-
-
-/**
- * Loads the file and returns a list of songs
- * @param songList
- * @param file
- * @return songs list
- */
-int *loadFile(FILE *file, int* array){
-    char *buffer = (char *) malloc(sizeof(char) * 255);
-    size_t bufferSize = 255;
-
-    int i = 0;
-    while(fgets(buffer, bufferSize, file) != NULL){
-        if (i != 0){
-            array = (int*) realloc(array, sizeof(int) * (i + 1));
-        }
-
-        array[i] = atoi(buffer);
-        i++;
-
-    }
-    free(buffer);
-
-    return array;
-}
-
-/**
- * Counts all the numbers on a file
- * Other solution could be storing it in a global variable at the loadFile method, but I don't like globals
- * @param file
- * @return
- */
-int countNumbers(FILE *file){
-    char *buffer = (char *) malloc(sizeof(char) * 255);
-    size_t bufferSize = 255;
-    int numbers = 0;
-    //Puts the pointer on the first line of the file
-    rewind(file);
-    while(fgets(buffer, bufferSize, file) != NULL){
-        numbers++;
-    }
-    free(buffer);
-
-    return numbers;
-}
-
 
 
 

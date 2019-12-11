@@ -61,7 +61,6 @@ void shellSort(int *array, int size, int *comparisons, int *swaps) {
 
     int i, j, interval, temp;
     interval = calcIncrementSize(size);
-    printf("Primer intervalo: %d\n", interval);
     while (interval > 0) {
         for (i = interval; i < size; i++) {
             j = i;
@@ -92,7 +91,7 @@ void shellSort(int *array, int size, int *comparisons, int *swaps) {
 }
 
 /**
- * Calcs the first increment to apply
+ * Calculates the first increment to apply
  * Uses the knuth algorithm
  * @param size
  * @return
