@@ -22,8 +22,8 @@ void mainBubbleSort(int *array, int size, char *outputFilePath) {
     double timeInvested;
 
     //For measuring
-    int swaps = 0;
-    int comparisons = 0;
+    double swaps = 0;
+    double comparisons = 0;
 
     gettimeofday(&start, NULL);
     basicBubbleSort(array, size, &comparisons, &swaps);
@@ -37,7 +37,7 @@ void mainBubbleSort(int *array, int size, char *outputFilePath) {
 
     printf(
             "\n-------------------- \nBUBBLE SORT\n--------------------\n"
-            "Tiempo Invertido: %f\nComparaciones: %d\nIntercambios: %d\n",
+            "Tiempo Invertido: %f\nComparaciones: %f\nIntercambios: %f\n",
             timeInvested, comparisons, swaps
     );
 }
@@ -49,7 +49,7 @@ void mainBubbleSort(int *array, int size, char *outputFilePath) {
  * @param comparisons
  * @param swaps
  */
-void basicBubbleSort(int *array, int size, int *comparisons, int *swaps) {
+void basicBubbleSort(int *array, int size, double *comparisons, double *swaps) {
     int i, j, interc;
     for (i = 0; i < size - 1; i++) {
         for (j = i + 1; j < size; j++) {

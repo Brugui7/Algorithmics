@@ -10,8 +10,8 @@
 #define ALGORITHMICS_SELECTIONSORT_H
 
 
-void basicSelectionSort(int *array, int size, int *comparisons, int *swaps);
+void basicSelectionSort(int *array, int size, double *comparisons, double *swaps);
 void mainSelectionSort(int *array, int size, char *outputFilePath);
-void improvedSelectionSort(int *array, int size, int *comparisons, int *swaps);
+void improvedSelectionSort(int *array, int size, double *comparisons, double *swaps);
 
 #endif //ALGORITHMICS_SELECTIONSORT_H

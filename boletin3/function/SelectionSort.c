@@ -23,8 +23,8 @@ void mainSelectionSort(int *array, int size, char *outputFilePath){
     double timeInvested;
 
     //For measuring
-    int swaps = 0;
-    int comparisons = 0;
+    double swaps = 0;
+    double comparisons = 0;
 
     int *arrayCopy = (int*) malloc(sizeof(int) * size);
     arrayCopy = copyArray(array, size, arrayCopy);
@@ -43,7 +43,7 @@ void mainSelectionSort(int *array, int size, char *outputFilePath){
 
     printf(
             "\n-------------------- \nSELECTION SORT\n--------------------\n"
-            "Tiempo Invertido: %f\nComparaciones: %d\nIntercambios: %d\n",
+            "Tiempo Invertido: %f\nComparaciones: %f\nIntercambios: %f\n",
             timeInvested, comparisons, swaps
     );
 
@@ -64,7 +64,7 @@ void mainSelectionSort(int *array, int size, char *outputFilePath){
 
     printf(
             "\n-------------------- \nSELECTION SORT MEJORADO\n--------------------\n"
-            "Tiempo Invertido: %f\nComparaciones: %d\nIntercambios: %d\n",
+            "Tiempo Invertido: %f\nComparaciones: %f\nIntercambios: %f\n",
             timeInvested, comparisons, swaps
     );
 
@@ -78,7 +78,7 @@ void mainSelectionSort(int *array, int size, char *outputFilePath){
  * @param comparisons
  * @param swaps
  */
-void basicSelectionSort(int *array, int size, int *comparisons, int *swaps) {
+void basicSelectionSort(int *array, int size, double *comparisons, double *swaps) {
 
     int i, j, pos, interc;
     for (i = 0; i < size - 1; i++) {
@@ -105,7 +105,7 @@ void basicSelectionSort(int *array, int size, int *comparisons, int *swaps) {
  * @param comparisons
  * @param swaps
  */
-void improvedSelectionSort(int *array, int size, int *comparisons, int *swaps) {
+void improvedSelectionSort(int *array, int size, double *comparisons, double *swaps) {
 
     int i, j, pos, interc;
     int nextSmallestPosition = 0;

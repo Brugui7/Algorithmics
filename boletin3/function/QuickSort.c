@@ -23,8 +23,8 @@ void mainQuickSort(int *array, int size, char *outputFilePath, int pivotOption) 
     double timeInvested;
 
     //For measuring
-    int swaps = 0;
-    int comparisons = 0;
+    double swaps = 0;
+    double comparisons = 0;
 
     int *arrayCopy = (int*) malloc(sizeof(int) * size);
     arrayCopy = copyArray(array, size, arrayCopy);
@@ -54,7 +54,7 @@ void mainQuickSort(int *array, int size, char *outputFilePath, int pivotOption) 
 
     printf(
             "\n--------------------\n"
-            "Tiempo Invertido: %f\nComparaciones: %d\nIntercambios: %d\n",
+            "Tiempo Invertido: %f\nComparaciones: %f\nIntercambios: %f\n",
             timeInvested, comparisons, swaps
     );
 
@@ -84,7 +84,7 @@ void swap(int *array, int i, int j) {
  * @param comparisons
  * @param swaps
  */
-void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparisons, int *swaps) {
+void quickSortRec(int *array, int ini, int fin, int pivotOption, double *comparisons, double *swaps) {
 
     int pivot;
     int i, j;
@@ -93,7 +93,7 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, int *comparison
     if (ini >= fin) return;
 
     //If the array has two elements check if they are in order and swaps them if not
-    if (ini + 1 == fin) {
+    if (ini + 1 == fin) { //I don't count this one
         (*comparisons)++;
         if (array[ini] > array[fin]){
             (*swaps)++;
@@ -197,7 +197,7 @@ int getRandAsPivot(int startPosition, int endPosition){
  * @param comparisons
  * @return
  */
-int getMedianAsPivot(const int *array, int startPosition, int endPosition, int *comparisons){
+int getMedianAsPivot(const int *array, int startPosition, int endPosition, double *comparisons){
     //For code reuse
     int middlePosition = getMidAsPivot(startPosition, endPosition);
 

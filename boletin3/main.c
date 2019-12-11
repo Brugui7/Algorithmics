@@ -76,9 +76,9 @@ void doAllSortings(){
     mainBubbleSort(arrayCopy, size, savePath);
     mainSelectionSort(array, size, savePath);
     mainShellSort(array, size, savePath);
-    mainQuickSort(arrayCopy, size, savePath, 1);
-    mainQuickSort(arrayCopy, size, savePath, 2);
-    mainQuickSort(arrayCopy, size, savePath, 3);
+    mainQuickSort(array, size, savePath, 1);
+    mainQuickSort(array, size, savePath, 2);
+    mainQuickSort(array, size, savePath, 3);
 
 }
 
