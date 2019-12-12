@@ -107,9 +107,9 @@ void basicSelectionSort(int *array, int size, double *comparisons, double *swaps
             *comparisons += 1;
             if (array[j] < array[pos]) {
                 pos = j;
-                (*swaps)++;
             }
         }
+        (*swaps)++;
         interc = array[pos];
         array[pos] = array[i];
         array[i] = interc;
@@ -129,31 +129,20 @@ void basicSelectionSort(int *array, int size, double *comparisons, double *swaps
 void improvedSelectionSort(int *array, int size, double *comparisons, double *swaps) {
 
     int i, j, pos, interc;
-    int nextSmallestPosition = 0;
     for (i = 0; i < size - 1; i++) {
-
         pos = i;
-        nextSmallestPosition = pos;
         for (j = i + 1; j < size; j++) {
             *comparisons += 1;
             if (array[j] < array[pos]) {
-                nextSmallestPosition = pos;
                 pos = j;
-                *swaps += 1;
             }
         }
-
-        *comparisons += 1;
-        if(nextSmallestPosition == i){
-            *comparisons += 1;
-            if (array[pos] >= array[nextSmallestPosition]){
-                if(pos == j) (*swaps)--;
-                    continue;
-            }
+        if (i != pos){
+            interc = array[pos];
+            array[pos] = array[i];
+            array[i] = interc;
+            (*swaps)++;
         }
-        interc = array[pos];
-        array[pos] = array[i];
-        array[i] = interc;
 
     }
 

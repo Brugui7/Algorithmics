@@ -180,10 +180,8 @@ void quickSortRec(int *array, int ini, int fin, int pivotOption, double *compari
         }
     }
 
-    //colocación del pivot en su sitio
     *swaps += 1;
     swap(array, i, fin);
-    //termina particion; //llamadas recursivas
     quickSortRec(array, ini, i - 1, pivotOption, comparisons, swaps);
     quickSortRec(array, i + 1, fin, pivotOption, comparisons, swaps);
 }
