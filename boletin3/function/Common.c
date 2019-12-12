@@ -15,6 +15,7 @@
 /**
  *
  * @param array
+ * @param size
  * @param outputFileName
  */
 void writeFile(int *array, int size, char *outputFileName){
@@ -45,6 +46,10 @@ int* copyArray(int *arraySource, int size, int *arrayDestination){
     return arrayDestination;
 }
 
+/**
+ *
+ * @return FILE
+ */
 FILE *askForFileToLoad(){
     char fileName[255] = "";
     FILE *file = NULL;
@@ -61,10 +66,10 @@ FILE *askForFileToLoad(){
 }
 
 /**
- * Loads the file and returns a list of songs
- * @param songList
+ * Loads the file and returns the array
  * @param file
- * @return songs list
+ * @param array
+ * @return
  */
 int *loadFile(FILE *file, int* array){
     char *buffer = (char *) malloc(sizeof(char) * 255);
