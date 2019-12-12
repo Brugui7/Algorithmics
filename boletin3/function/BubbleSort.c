@@ -100,7 +100,7 @@ void basicBubbleSort(int *array, int size, double *comparisons, double *swaps) {
     int i, j, interc;
     for (i = 0; i < size - 1; i++) {
         for (j = i + 1; j < size; j++) {
-            *comparisons += 1;
+            (*comparisons)++;
             if (array[j] < array[i]) {
                 interc = array[j];
                 array[j] = array[i];
