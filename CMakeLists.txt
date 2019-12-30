@@ -9,4 +9,6 @@ add_executable(Algorithmics
     boletin4/main.c
         boletin4/model/Common.h boletin4/function/Common.c
         boletin4/model/DirectSearch.h boletin4/function/DirectSearch.c
-        )
+        boletin4/function/kmp.c
+        boletin4/function/bm.c
+        boletin4/model/kmp.h)

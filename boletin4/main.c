@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include "Common.h"
 #include "DirectSearch.h"
+#include "kmp.h"
 
 void showMenu();
 void doAllSearchs();
@@ -40,6 +41,7 @@ void showMenu() {
                 readFileAndExecuteDirectSearch();
                 break;
             case 3:
+                readFileAndExecuteKMP();
                 break;
             case 4:
                 break;
@@ -58,7 +60,7 @@ void showMenu() {
 /**
  * Calls all the algorithms' functions to search a given string in a file
  */
-void doAllSearchs(){
+void doAllSearchs(){ //TODO: hacerlo xD
     char *array = NULL;
     FILE *file = askForFileToLoad();
     array = loadFile(file, array);
