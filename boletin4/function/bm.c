@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <bm.h>
+#include <sys/time.h>
+#include <Common.h>
 
 #define TRUE 1
 #define FALSE 0
 
-#define ALPHABET_SIZE 25  // Tamaño del alfabeto espanol
-
-
 // Funcion para calcular la tabla D1 (regla del mal caracter).
-// p es el patron, size es el tamaño del patrón y D1 es la tabla que se debe rellenar 
+// p es el patron, size es el tamaño del patrón y D1 es la tabla que se debe rellenar
 // en la funcion
 static void prepare_badcharacter_heuristic(const char *p, int size, int D1[ALPHABET_SIZE]) {
 
@@ -25,7 +25,7 @@ static void prepare_badcharacter_heuristic(const char *p, int size, int D1[ALPHA
 
 }
 
-// Funcion auxiliar necesaria para calcular la tabla D2. 
+// Funcion auxiliar necesaria para calcular la tabla D2.
 static void compute_prefix(const char *str, int size, int result[]) {
     int q;
     int k;
@@ -42,8 +42,8 @@ static void compute_prefix(const char *str, int size, int result[]) {
     }
 }
 
-// Funcion para calcular la tabla D2 (regla del buen sufijo). 
-// p es el patron, size es el tamaño del patrón y D2 es la tabla que se debe rellenar 
+// Funcion para calcular la tabla D2 (regla del buen sufijo).
+// p es el patron, size es el tamaño del patrón y D2 es la tabla que se debe rellenar
 // en la funcion
 void prepare_goodsuffix_heuristic(const char *p, int size, int D2[]) {
 
@@ -92,25 +92,24 @@ void mostrar_tabla(int *s, int size, const char *nombre_tabla) {
  * s es la cadena madre, p es el patrón, y posiciones es un array de enteros
  * que contendrá las posiciones iniciales del patrón p detectado en la cadena s cuando acabe el algoritmo
  */
-void boyermoore_search(char *s, char *p, int posiciones[]) {
-    /*
-    * Calcula el tamaño de las cadenas
-    */
+int *boyermoore_search(char *s, char *p) {
     int s_len, p_len;
+    int *foundPositions = (int *) malloc(sizeof(int));
+    foundPositions[0] = -1;
+    int foundPositionsCounter = 0;
+
+    //Calcula el tamaño de las cadenas
     p_len = strlen(p);
     s_len = strlen(s);
 
-    /*
-    * Comprobaciones simples
-    */
+
+    //Comprobaciones simples
     if (s_len == 0)
-        return;
+        return foundPositions;
     if (p_len == 0)
-        return;
+        return foundPositions;
     if (p_len > s_len)
-        return;
-
-
+        return foundPositions;
     //Obtener tablas D1 y D2
 
     int D1[ALPHABET_SIZE];  // D1 = mal caracter
@@ -126,7 +125,6 @@ void boyermoore_search(char *s, char *p, int posiciones[]) {
     // Busqueda Boyer-Moore
 
     int i = 0; // indice de la cadena s
-    int k = 0; // indice del vector resultado "posiciones"
     while (i <= (s_len - p_len)) {
         int j = p_len;  // indice del patron p (desde el ultimo caracter)
         while (j > 0 && p[j - 1] == s[i + j - 1])
@@ -140,28 +138,65 @@ void boyermoore_search(char *s, char *p, int posiciones[]) {
             else
                 i += D2[j];
         } else {
-            posiciones[k] = i; // Grabamos la posición incial donde se ha encontrado el patrón
-            k++;
+            printf("asd");
+            foundPositionsCounter++;
+            foundPositions = (int *) realloc(foundPositions, sizeof(int) * (foundPositionsCounter + 1));
+            foundPositions[foundPositionsCounter - 1] = i; //Saves the first position of the pattern
+            foundPositions[foundPositionsCounter] = -1; //To know the end of the array
             i++;
         }
     }
-
+    return foundPositions;
 }
 
-/*
-int main(int argc, char *argv[]) {
-
-    int *posiciones;  // TO_DO: En esta variable se debe crear un array para 
-    // almacenar las posiciones del texto donde se
-    // encuentra el patrón e iniciarlo a un valor no representativo
-
-    // TO_DO: Abrir el fichero de texto fuente y almacenarlo en un array
-
-    // TO_DO: LlAmar a KMPSearch con el texto de búsqueda del fichero "textobusq.txt",
-    // el patrón "papadopaulus" y el array de posiciones
+/**
+ * Reads the file and calls the main method
+ */
+void readFileAndExecuteBM() {
+    FILE *file = askForFileToLoad();
+    char *array = NULL;
+    char *pattern = askForPattern();
+    array = loadFile(file, array);
+    fclose(file);
 
 
-    system("PAUSE");
-    return 0;
+    mainBM(array, pattern);
+
+    free(array);
+    free(pattern);
 }
-*/
+
+void mainBM(char *array, char *pattern) {
+    //For time measuring
+    struct timeval start, end;
+    double timeInvested;
+
+    //For measuring
+    double restarts = 0;
+
+    printf("\n-------------------- \nBM\n--------------------\n");
+
+    gettimeofday(&start, NULL);
+    int *foundPositions = boyermoore_search(array, pattern);
+    gettimeofday(&end, NULL);
+    timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
+                    end.tv_usec - start.tv_usec) / 1.e6;
+
+    printf(//TODO iterations
+            "\nTiempo Invertido: %f\nReinicios: %.2f\n",
+            timeInvested, restarts
+    );
+
+    if (foundPositions[0] == -1) {
+        printf("No se ha encontrado ninguna coincidencia\n");
+    } else {
+        printf("Se ha encontrado la subcadena en las siguientes posiciones:\n");
+        int i = 0;
+        while (foundPositions[i] != -1) {
+            printf("%d ", foundPositions[i++]);
+        }
+        printf("\n");
+    }
+
+    free(foundPositions);
+}

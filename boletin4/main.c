@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <bm.h>
 #include "Common.h"
 #include "DirectSearch.h"
 #include "kmp.h"
@@ -44,6 +45,7 @@ void showMenu() {
                 readFileAndExecuteKMP();
                 break;
             case 4:
+                readFileAndExecuteBM();
                 break;
             case 5:
                 printf("Saliendo...\n");
@@ -64,9 +66,13 @@ void doAllSearchs(){ //TODO: hacerlo xD
     char *array = NULL;
     FILE *file = askForFileToLoad();
     array = loadFile(file, array);
+    char *pattern = askForPattern();
     fclose(file);
-    printf("%s", array);
+    mainDirectSearch(array, pattern);
+    mainKMP(array, pattern);
+    mainBM(array, pattern);
     free(array);
+    free(pattern);
 }
 
 

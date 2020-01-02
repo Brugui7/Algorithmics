@@ -103,6 +103,7 @@ void mainKMP(char *array, char *pattern) {
     //For measuring
     double restarts = 0;
 
+    printf("\n-------------------- \nKMP\n--------------------\n");
 
     gettimeofday(&start, NULL);
     int *foundPositions = KMPSearch(array, pattern);
@@ -111,8 +112,7 @@ void mainKMP(char *array, char *pattern) {
                     end.tv_usec - start.tv_usec) / 1.e6;
 
     printf(//TODO iterations
-            "\n-------------------- \nKMP\n--------------------\n"
-            "Tiempo Invertido: %f\nReinicios: %.2f\n",
+            "\nTiempo Invertido: %f\nReinicios: %.2f\n",
             timeInvested, restarts
     );
 
@@ -122,7 +122,7 @@ void mainKMP(char *array, char *pattern) {
         printf("Se ha encontrado la subcadena en las siguientes posiciones:\n");
         int i = 0;
         while (foundPositions[i] != -1) {
-            printf("%d, ", foundPositions[i++]);
+            printf("%d ", foundPositions[i++]);
         }
         printf("\n");
     }

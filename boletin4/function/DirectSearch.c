@@ -62,7 +62,7 @@ void mainDirectSearch(char *array, char *pattern){
         printf("Se ha encontrado la subcadena en las siguientes posiciones:\n");
         int i = 0;
         while (foundPositions[i] != -1){
-            printf("%d, ", foundPositions[i++]);
+            printf("%d ", foundPositions[i++]);
         }
         printf("\n");
     }
