@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief Booyer Moore Search implementations
+ * @author Andrés Muñoz
+ * @since 2019-12
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -92,7 +98,7 @@ void mostrar_tabla(int *s, int size, const char *nombre_tabla) {
  * s es la cadena madre, p es el patrón, y posiciones es un array de enteros
  * que contendrá las posiciones iniciales del patrón p detectado en la cadena s cuando acabe el algoritmo
  */
-int *boyermoore_search(char *s, char *p) {
+int *boyermoore_search(char *s, char *p, double *restarts) {
     int s_len, p_len;
     int *foundPositions = (int *) malloc(sizeof(int));
     foundPositions[0] = -1;
@@ -127,18 +133,20 @@ int *boyermoore_search(char *s, char *p) {
     int i = 0; // indice de la cadena s
     while (i <= (s_len - p_len)) {
         int j = p_len;  // indice del patron p (desde el ultimo caracter)
-        while (j > 0 && p[j - 1] == s[i + j - 1])
+        while (j > 0 && p[j - 1] == s[i + j - 1]){
             j--;
+        }
 
         if (j > 0) {
             int z = D1[((size_t) s[i + j - 1]) - 97];
             int m;
-            if (z < j && (m = j - z - 1) > D2[j])
+            if (z < j && (m = j - z - 1) > D2[j]){
                 i += m;
-            else
+            } else {
                 i += D2[j];
+            }
+            (*restarts)++;
         } else {
-            printf("asd");
             foundPositionsCounter++;
             foundPositions = (int *) realloc(foundPositions, sizeof(int) * (foundPositionsCounter + 1));
             foundPositions[foundPositionsCounter - 1] = i; //Saves the first position of the pattern
@@ -177,7 +185,7 @@ void mainBM(char *array, char *pattern) {
     printf("\n-------------------- \nBM\n--------------------\n");
 
     gettimeofday(&start, NULL);
-    int *foundPositions = boyermoore_search(array, pattern);
+    int *foundPositions = boyermoore_search(array, pattern, &restarts);
     gettimeofday(&end, NULL);
     timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
                     end.tv_usec - start.tv_usec) / 1.e6;

@@ -10,6 +10,6 @@
 
 void mostrar_tablaKMP(int *t, int size, const char *nombre_tabla);
 void preKMP(char *p, int size, int *tablaNext);
-int *KMPSearch(char *s, char *p);
+int *KMPSearch(char *s, char *p, double *restarts);
 void readFileAndExecuteKMP();
 void mainKMP(char *array, char *pattern);

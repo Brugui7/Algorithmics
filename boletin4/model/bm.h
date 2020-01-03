@@ -18,6 +18,6 @@ static void prepare_badcharacter_heuristic(const char *p, int size, int D1[ALPHA
 static void compute_prefix(const char *str, int size, int result[]);
 void prepare_goodsuffix_heuristic(const char *p, int size, int D2[]);
 void mostrar_tabla(int *s, int size, const char *nombre_tabla);
-int *boyermoore_search(char *s, char *p);
+int *boyermoore_search(char *s, char *p, double *restarts);
 void readFileAndExecuteBM();
 void mainBM(char *array, char *pattern);

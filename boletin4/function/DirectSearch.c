@@ -85,7 +85,6 @@ int *doDirectSearch(char *array, char *pattern, double *restarts){
     int foundPositionsCounter = 0;
 
     if (patternSize > textSize){
-        foundPositions[0] = -1;
         return foundPositions;
     }
 
@@ -108,7 +107,6 @@ int *doDirectSearch(char *array, char *pattern, double *restarts){
     }
 
     return foundPositions;
-    //TODO si no se ha encontrado
 }
 
 

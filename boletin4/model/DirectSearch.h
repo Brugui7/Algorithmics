@@ -7,8 +7,8 @@
 #ifndef ALGORITHMICS_BUBBLESORT_H
 #define ALGORITHMICS_BUBBLESORT_H
 
-int *doDirectSearch(char *array, char *pattern, double *restarts);
-void mainDirectSearch(char *array, char *pattern);
 void readFileAndExecuteDirectSearch();
+void mainDirectSearch(char *array, char *pattern);
+int *doDirectSearch(char *array, char *pattern, double *restarts);
 
 #endif //ALGORITHMICS_BUBBLESORT_H

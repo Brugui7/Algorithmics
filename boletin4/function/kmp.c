@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief KMP Search implementations
+ * @author Andrés Muñoz
+ * @since 2019-12
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,7 +14,12 @@
 #define TRUE 1
 #define FALSE 0
 
-// Función para mostrar la tabla siguiente
+/**
+ * Función para mostrar la tabla siguiente
+ * @param t
+ * @param size
+ * @param nombre_tabla
+ */
 void mostrar_tablaKMP(int *t, int size, const char *nombre_tabla) {
     printf("Tabla %s: ", nombre_tabla);
     for (int i = 0; i < size; i++) {
@@ -18,8 +29,12 @@ void mostrar_tablaKMP(int *t, int size, const char *nombre_tabla) {
 }
 
 
-// p es el patrón, size es el tamaño del patron y tablaNext es la tabla "siguiente" asociada a p
-// Esta función se encarga de calcular la tabla siguiente
+/**
+ * Esta función se encarga de calcular la tabla siguiente
+ * @param p patten
+ * @param size of the pattern
+ * @param tablaNext associated to p
+ */
 void preKMP(char *p, int size, int *tablaNext) {
     int i, j;
     i = 0;
@@ -38,9 +53,14 @@ void preKMP(char *p, int size, int *tablaNext) {
 }
 
 
-// s es la cadena madre, p es el patrón, y posiciones es un array de enteros
-// que contendrá las posiciones iniciales del patrón p detectado en la cadena s
-int *KMPSearch(char *s, char *p) {
+/**
+ *
+ * @param s string
+ * @param p pattern
+ * @param restarts
+ * @return
+ */
+int *KMPSearch(char *s, char *p, double *restarts) {
     int i, j; // i índice de S, j índice de P
     int *foundPositions = (int*) malloc(sizeof(int));
     foundPositions[0] = -1;
@@ -72,6 +92,8 @@ int *KMPSearch(char *s, char *p) {
             foundPositions[foundPositionsCounter - 1] = i - j; //Saves the first position of the pattern
             foundPositions[foundPositionsCounter] = -1; //To know the end of the array
             j = 0;
+        } else {
+            (*restarts)++;
         }
     }
 
@@ -106,7 +128,7 @@ void mainKMP(char *array, char *pattern) {
     printf("\n-------------------- \nKMP\n--------------------\n");
 
     gettimeofday(&start, NULL);
-    int *foundPositions = KMPSearch(array, pattern);
+    int *foundPositions = KMPSearch(array, pattern, &restarts);
     gettimeofday(&end, NULL);
     timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
                     end.tv_usec - start.tv_usec) / 1.e6;
