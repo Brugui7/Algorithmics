@@ -70,9 +70,11 @@ void mainDirectSearch(char *array, char *pattern){
     free(foundPositions);
 }
 
+
 /**
  * The algorithm itself
  * @param array
+ * @param pattern
  * @param restarts
  * @return array with the positions where the pattern was found
  */

@@ -1,0 +1,50 @@
+[OPTIONS]
+Compatibility=1.1
+Full-text search=Yes
+Contents file=index.hhc
+Default Window=main
+Default topic=index.html
+Index file=index.hhk
+Language=0x409 English (United States)
+Title=Boletin 4
+
+[WINDOWS]
+main="Boletin 4","index.hhc","index.hhk","index.html","index.html",,,,,0x23520,,0x10387e,,,,,,,,0
+
+[FILES]
+bm_8h_source.html
+_common_8h_source.html
+_direct_search_8h_source.html
+kmp_8h_source.html
+bm_8c.html
+_common_8c.html
+_direct_search_8c.html
+kmp_8c.html
+main_8c.html
+bm_8h.html
+_common_8h.html
+_direct_search_8h.html
+kmp_8h.html
+dir_29820b7a411ae225b5b4a0807a379a47.html
+dir_26e507e981c452767dbb17570ff4be9f.html
+dir_fd4d96c3073293ef25b463a8b2ba7d0d.html
+dir_19f4021245ef7d6c48d6d622b8eea91a.html
+dir_77b6f9e8d2dcef8fdf0394eba52d9b05.html
+index.html
+files.html
+globals.html
+globals_func.html
+globals_defs.html
+tab_a.png
+tab_b.png
+tab_h.png
+tab_s.png
+nav_h.png
+nav_f.png
+bc_s.png
+doxygen.png
+closed.png
+open.png
+bdwn.png
+sync_on.png
+sync_off.png
