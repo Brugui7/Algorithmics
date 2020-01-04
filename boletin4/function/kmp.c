@@ -83,6 +83,7 @@ int *KMPSearch(char *s, char *p, double *restarts) {
     while (i < s_len) {
         while (j > -1 && s[i] != p[j]) {
             j = tablaNext[j];
+            if (j <= 0) (*restarts)++;
         }
         i++;
         j++;
@@ -92,8 +93,6 @@ int *KMPSearch(char *s, char *p, double *restarts) {
             foundPositions[foundPositionsCounter - 1] = i - j; //Saves the first position of the pattern
             foundPositions[foundPositionsCounter] = -1; //To know the end of the array
             j = 0;
-        } else {
-            (*restarts)++;
         }
     }
 
@@ -133,7 +132,7 @@ void mainKMP(char *array, char *pattern) {
     timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
                     end.tv_usec - start.tv_usec) / 1.e6;
 
-    printf(//TODO iterations
+    printf(
             "\nTiempo Invertido: %f\nReinicios: %.2f\n",
             timeInvested, restarts
     );

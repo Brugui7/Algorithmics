@@ -142,10 +142,15 @@ int *boyermoore_search(char *s, char *p, double *restarts) {
             int m;
             if (z < j && (m = j - z - 1) > D2[j]){
                 i += m;
+                (*restarts)++;
+
             } else {
+                if (D2[j] == p_len) (*restarts)++;
                 i += D2[j];
             }
-            (*restarts)++;
+
+
+
         } else {
             foundPositionsCounter++;
             foundPositions = (int *) realloc(foundPositions, sizeof(int) * (foundPositionsCounter + 1));
@@ -190,7 +195,7 @@ void mainBM(char *array, char *pattern) {
     timeInvested = ((end.tv_sec - start.tv_sec) * 1000000u +
                     end.tv_usec - start.tv_usec) / 1.e6;
 
-    printf(//TODO iterations
+    printf(
             "\nTiempo Invertido: %f\nReinicios: %.2f\n",
             timeInvested, restarts
     );
